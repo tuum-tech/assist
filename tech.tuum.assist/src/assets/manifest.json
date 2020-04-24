@@ -1,0 +1,46 @@
+{
+  "id": "tech.tuum.assist",
+  "version": "0.0.1",
+  "version_code": 1,
+  "name": "Assist",
+  "short_name": "Assist",
+  "short_description": "Assist dApp for elastOS",
+  "description": "TBD",
+  "start_url": "index.html",
+  "type": "app",
+  "start_visible": "hide",
+  "category": "finance",
+  "icons": [
+    {
+      "src": "assets/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/logo.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ],
+  "author": {
+    "name": "Tuum Tech",
+    "email": "contact@tuum.tech",
+    "website": "https://tuum.tech"
+  },
+  "default_locale": "en",
+  "plugins": [
+    "Device",
+    "NetworkStatus"
+  ],
+  "urls": [
+    ""
+  ],
+    "intent_filters": [
+        {
+            "action": "didtransaction"
+        }
+   ],
+  "background_color": "#4e8ef7",
+  "theme_display": "show",
+  "theme_color": "#4e8ef7"
+}

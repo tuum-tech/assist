@@ -34,7 +34,7 @@ export class AboutPage {
 
   refresh() {
     console.log(AppService.intentConfig);
-    if (AppService.intentConfig) {
+    if (AppService.intentConfig && AppService.intentConfig.transfer) {
       this.payload = AppService.intentConfig.transfer.didrequest.payload;
       this.did = AppService.intentConfig.transfer.from;
       this.hasTransaction = true;
@@ -48,9 +48,19 @@ export class AboutPage {
   }
 
   returnTransaction() {
-    console.log("Response intent", AppService.intentConfig)
-    this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, { txid: null }, AppService.intentConfig.transfer.intentId);
-    AppService.intentConfig = {};
-    this.refresh()
+    let url = "http://192.168.1.117:14514/create"
+    let data = {
+      "didId": this.did,
+      "didRequest" : AppService.intentConfig.transfer.didrequest
+    }
+    console.log(JSON.stringify(data))
+    this.appService.sendPost(url, data).then(response=>{
+      console.log("Transaction ID", response._id)
+      this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, { txid: response._id }, AppService.intentConfig.transfer.intentId);
+      AppService.intentConfig = {};
+      this.refresh()
+    })
+
+    
   }
 }

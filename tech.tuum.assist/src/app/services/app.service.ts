@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Native } from './Native';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 declare let appManager: AppManagerPlugin.AppManager;
 let appManagerObj = null;
 let myService = null;
@@ -15,7 +16,7 @@ export class AppService {
     private isReceiveIntentReady = false;
 
     
-    constructor(public native: Native) {
+    constructor(public native: Native,  private http: HttpClient) {
         
         myService = this;
     }
@@ -34,6 +35,7 @@ export class AppService {
     }
 
     onReceiveIntent(intent: AppManagerPlugin.ReceivedIntent) {
+        console.log(intent);
         console.log("Intent received message:", intent.action, ". params: ", intent.params, ". from: ", intent.from);
         AppService.intentConfig = {};
         AppService.intentConfig.transfer = {
@@ -47,6 +49,22 @@ export class AppService {
             chainId: 'IDChain',
         };
         myService.native.go('/tab2Root');
+    }
+
+    sendPost(url, data) : Promise<any> {
+        return new Promise((resolve, reject) =>{
+            
+            let headers = new HttpHeaders({
+                'Content-Type': 'application/json',
+            })
+            this.http.post(url, data, {"headers": headers}).toPromise().then(response =>{
+                console.log(response)
+                resolve(response)
+            }).catch(err=>{
+                console.log("send err", err)
+                reject(err)
+            });
+        })
     }
 
     sendIntentResponse(action, result, intentId) {

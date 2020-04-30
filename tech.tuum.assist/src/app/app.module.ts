@@ -15,6 +15,7 @@ import { TabsPage } from './pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Native } from './services/Native';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { Native } from './services/Native';
     CommonModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     IonicModule.forRoot()
   ],
   bootstrap: [MyApp],

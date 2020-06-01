@@ -33,7 +33,7 @@
     "NetworkStatus"
   ],
   "urls": [
-    "http://192.168.1.117:14514/*"
+    "http://192.168.1.253:8000/*"
   ],
     "intent_filters": [
         {

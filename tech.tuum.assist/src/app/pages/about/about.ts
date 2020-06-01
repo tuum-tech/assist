@@ -48,15 +48,15 @@ export class AboutPage {
   }
 
   returnTransaction() {
-    let url = "http://192.168.1.117:14514/create"
+    let url = "http://192.168.1.253:8000/v1/didtx/create"
     let data = {
       "didId": this.did,
       "didRequest" : AppService.intentConfig.transfer.didrequest
     }
     console.log(JSON.stringify(data))
     this.appService.sendPost(url, data).then(response=>{
-      console.log("Transaction ID", response._id)
-      this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, { txid: response._id }, AppService.intentConfig.transfer.intentId);
+      console.log("Confirmation ID", response.data["confirmation_id"])
+      this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, { txid: response.data["confirmation_id"] }, AppService.intentConfig.transfer.intentId);
       AppService.intentConfig = {};
       this.refresh()
     })

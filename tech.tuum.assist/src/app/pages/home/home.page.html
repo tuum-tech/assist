@@ -1,0 +1,86 @@
+<ion-content class="ion-no-padding">
+  <div style="height: 100%">
+  
+  <div class="header">
+      <img src="../../../assets/images/Navbar-logo@2x.png" height="36px" />
+      <div style="float: right;">
+        <img src="../../../assets/images/Nav-bar-Profile.png" (click)="openProfile()" />
+      </div>
+  </div>
+
+  <div class="tab">
+      <ion-segment value="requests" (ionChange)="tabChanged($event)">
+          <ion-segment-button value="requests"  >
+              <ion-label>Requests</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="services">
+              <ion-label>Services</ion-label>
+          </ion-segment-button>
+      </ion-segment>
+  </div>
+
+  <div class="tab-requests" *ngIf="selectedTab=='requests'">
+
+    <div class="request-item" (click)="gotoRequests('identification')">
+      <div class="ellipse">
+        <img src="../../../assets/images/DID Icon@2x.png" width="20px" />
+      </div>
+      <span>ID Publish</span>
+      <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
+      
+    </div>
+
+    <div class="request-item" (click)="gotoRequests('media')">
+      <div class="ellipse">
+        <img src="../../../assets/images/DID Icon@2x.png" width="20px" />
+      </div>
+      <span>Media Uploads</span>
+      <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
+      
+    </div>
+
+    <div class="recent-requests">
+      <h2>Recent</h2>
+
+      <div class="recent-item" (click)="gotoDetails('1354976468')">
+        <div class="ellipse-recent">
+          <img src="../../../assets/images/DID Icon-1@2x.png" width="20px" />
+        </div>
+        <img src="../../../assets/images/icon-next.png" class="recent-item-caret" />
+        <div class="recent-item-details" >
+          <span class="recent-item-header">Request No: 1354976468</span>
+          <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> 13 days ago ●</span>
+          <span class="recent-item-status"> Published </span>
+        </div>
+      </div>
+      <div class="recent-item" (click)="gotoDetails('1354976468')">
+        <div class="ellipse-recent">
+          <img src="../../../assets/images/DID Icon-1@2x.png" width="20px" />
+        </div>
+        <img src="../../../assets/images/icon-next.png" class="recent-item-caret" />
+        <div class="recent-item-details" >
+          <span class="recent-item-header">Request No: 12312312</span>
+          <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> 5 days ago ●</span>
+          <span class="recent-item-status"> Error </span>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+
+  <div class="tab-services" *ngIf="selectedTab=='services'">
+    <div class="request-item">
+      <div class="ellipse">
+        <img src="../../../assets/images/DID Icon@2x.png" width="20px" />
+      </div>
+      <span>Media Upload</span>
+      <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
+      
+    </div>
+
+   
+  </div>
+
+</div>
+</ion-content>

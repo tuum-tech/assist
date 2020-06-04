@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { AboutPage } from './pages/about/about';
-import { ContactPage } from './pages/contact/contact';
-import { HomePage } from './pages/home/home';
+import { HomePage } from './pages/home/home.page';
+import { SplashPage } from './pages/splash/splash.page';
+import { OnBoardingPage } from './pages/onboarding/onboarding.page';
+import { RequestsPage } from './pages/requests/requests.page';
+import { DetailsPage } from './pages/details/details.page';
+import { CreatePage } from './pages/create/create.page';
 
 const routes: Routes = [
-  { path: 'tab1Root', component: HomePage },
-  { path: 'tab2Root', component: AboutPage },
-  { path: 'tab3Root', component: ContactPage }
+  { path: '', component: SplashPage, pathMatch: 'full' },
+  { path: 'onboarding', component: OnBoardingPage },
+  { path: 'create', component: CreatePage },
+  { path: 'home', component: HomePage },
+  { path: 'requests', component: RequestsPage },
+  { path: 'details', component: DetailsPage },
 ];
 
 @NgModule({

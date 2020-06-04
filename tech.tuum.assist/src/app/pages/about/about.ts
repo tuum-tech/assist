@@ -43,7 +43,7 @@ export class AboutPage {
       this.hasTransaction = false;
       this.did = "No transactions to send"
       this.payload = "";
-      this.native.go("/tab1Root")
+      this.native.go("/home")
     }
   }
 

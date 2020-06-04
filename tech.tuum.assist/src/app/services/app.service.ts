@@ -22,7 +22,7 @@ export class AppService {
     }
 
     init(){
-
+        this.setIntentListener()
     }
 
     setIntentListener() {
@@ -35,7 +35,6 @@ export class AppService {
     }
 
     onReceiveIntent(intent: AppManagerPlugin.ReceivedIntent) {
-        console.log(intent);
         console.log("Intent received message:", intent.action, ". params: ", intent.params, ". from: ", intent.from);
         AppService.intentConfig = {};
         AppService.intentConfig.transfer = {
@@ -48,7 +47,7 @@ export class AppService {
             didrequest: intent.params.didrequest,
             chainId: 'IDChain',
         };
-        myService.native.go('/tab2Root');
+        myService.native.go('/create');
     }
 
     sendPost(url, data) : Promise<any> {
@@ -56,6 +55,7 @@ export class AppService {
             
             let headers = new HttpHeaders({
                 'Content-Type': 'application/json',
+                'Authorization': "assist-restapi-secret-key"
             })
             this.http.post(url, data, {"headers": headers}).toPromise().then(response =>{
                 console.log(response)

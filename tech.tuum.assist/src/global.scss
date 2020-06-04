@@ -38,3 +38,33 @@ ion-title {
     }
   }
 }
+
+@font-face {
+  font-family: PoppinsLight;
+  src: url('./assets/fonts/poppins/Poppins-Light.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url('./assets/fonts/poppins/Poppins-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: PoppinsMedium;
+  src: url('./assets/fonts/poppins/Poppins-Medium.ttf'); 
+}
+
+@font-face {
+  font-family: PoppinsBold;
+  src: url('./assets/fonts/poppins/Poppins-Bold.ttf'); 
+}
+
+@font-face {
+  font-family: PoppinsSemiBold;
+  src: url('./assets/fonts/poppins/Poppins-SemiBold.ttf'); 
+}
+
+@font-face {
+  font-family: PoppinsExtraBold;
+  src: url('./assets/fonts/poppins/Poppins-ExtraBold.ttf'); 
+}

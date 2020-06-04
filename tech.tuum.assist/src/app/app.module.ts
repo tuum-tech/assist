@@ -8,37 +8,49 @@ import { AppRoutingModule } from './app-routing.module';
 import { MyApp } from './app.component';
 
 import { AboutPage } from './pages/about/about';
-import { ContactPage } from './pages/contact/contact';
-import { HomePage } from './pages/home/home';
-import { TabsPage } from './pages/tabs/tabs';
+import { HomePage } from './pages/home/home.page';
 
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Native } from './services/Native';
 import { HttpClientModule } from '@angular/common/http';
+import { SplashPage } from './pages/splash/splash.page';
+import { OnBoardingPage } from './pages/onboarding/onboarding.page';
+import { ComponentsModule } from './components/components.module';
+import { DetailsPage } from './pages/details/details.page';
+import { RequestsPage } from './pages/requests/requests.page';
+import { CreatePage } from './pages/create/create.page';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
-    ContactPage,
+    CreatePage,
     HomePage,
-    TabsPage
+    SplashPage,
+    OnBoardingPage,
+    DetailsPage,
+    RequestsPage
   ],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    IonicModule.forRoot()
+    ComponentsModule,
+    IonicModule.forRoot(),
+    
   ],
   bootstrap: [MyApp],
   entryComponents: [
     MyApp,
     AboutPage,
-    ContactPage,
+    CreatePage,
     HomePage,
-    TabsPage
+    SplashPage,
+    OnBoardingPage,
+    DetailsPage,
+    RequestsPage
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,83 @@
+.recent-item{
+    display: inline-block;
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    padding: 17px;
+    margin: 0 auto;
+    box-shadow: 0 0 16pt #0000000B;
+    width: 100%;
+  }
+
+  .recent-item-details{
+    position: absolute;
+    display: inline;
+    margin-left: 15px;
+  }
+  
+  .recent-item-header{
+    display: block;
+    font-family: Poppins;
+    font-size: 15px;
+  }
+
+  .recent-item-time{
+    display: inline;
+    color: #000000DE;
+    opacity: 0.38;
+    font-family: Poppins;
+    font-size: 12px;
+    
+  }
+
+  .recent-item-status{
+    display: inline;
+    
+    font-family: Poppins;
+    font-size: 12px;
+
+    
+  }
+
+
+
+  .recent-item-status-success {
+    @extend .recent-item-status;
+    color: #2FC414;
+  }
+  .recent-item-status-error {
+    @extend .recent-item-status;
+    color: #FF066C;
+  }
+
+  .recent-item-status-pending {
+    @extend .recent-item-status;
+    color: #C49B14;
+  }
+    
+
+
+  .recent-item-caret{
+    float: right;
+    margin-top: 10px;
+  }
+
+  .ellipse-recent {
+    border-radius: 50%;
+    overflow: hidden;
+    background: #F0F6FF;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    float: left;
+
+  }
+  
+  .ellipse-recent img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    
+  }

@@ -5,6 +5,8 @@ import { Native } from 'src/app/services/Native';
 import { Router } from '@angular/router';
 import { HttpHelper } from 'src/app/services/httphelper.service';
 import { RequestDTO } from 'src/app/models/request.model';
+import { PostDTO } from 'src/app/models/httpresponse.model';
+
 
 declare let appManager: AppManagerPlugin.AppManager;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
@@ -83,7 +85,13 @@ export class CreatePage {
       this.profileValues =[]
       this.payload = "";
       this.memo = "";
-      this.router.navigate(["home"],{ replaceUrl: true });  
+
+      var redirectPage = "onboarding"
+      if (AppService.signedIdentity)
+      {
+        redirectPage = "home"
+      }
+      this.router.navigate([redirectPage],{ replaceUrl: true });  
     }
   }
 
@@ -91,14 +99,17 @@ export class CreatePage {
     let action = "/v1/didtx/create"
     let data = {
       "didRequest" : AppService.intentConfig.transfer.didrequest,
-      "memo": this.memo
+      "requestFrom": AppService.intentConfig.transfer.from,
+      "memo": this.memo || ""
     }
-    this.httpService.post<RequestDTO>(action, data).then(response=>{
+    this.httpService.post<PostDTO>(action, data).then(response=>{
       console.log("Confirmation", response)
       this.timer = 20;
-      this.requestId = response.id;
+      this.requestId = response.data["confirmation_id"];
       this.startTimer();
       this.endTransaction = true;
+    }).catch(error =>{
+      console.log("error");
     })
   }
 

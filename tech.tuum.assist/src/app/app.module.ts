@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { MyApp } from './app.component';
 
-import { AboutPage } from './pages/about/about';
 import { HomePage } from './pages/home/home.page';
 
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -24,7 +23,6 @@ import { CreatePage } from './pages/create/create.page';
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
     CreatePage,
     HomePage,
     SplashPage,
@@ -44,7 +42,6 @@ import { CreatePage } from './pages/create/create.page';
   bootstrap: [MyApp],
   entryComponents: [
     MyApp,
-    AboutPage,
     CreatePage,
     HomePage,
     SplashPage,

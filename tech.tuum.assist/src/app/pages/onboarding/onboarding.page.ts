@@ -20,8 +20,10 @@ export class OnBoardingPage {
     
   }
 
-  doLogin(){
-    this.router.navigate(['home'],{ replaceUrl: true });
+  async doLogin(){
+    var loginResponse = await this.appService.tryDoLogin();
+
+    if (loginResponse) this.router.navigate(['home'],{ replaceUrl: true });
   }
 
   ionViewDidEnter() {

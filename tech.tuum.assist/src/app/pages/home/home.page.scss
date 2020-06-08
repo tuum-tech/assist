@@ -50,47 +50,7 @@ ion-content{
   }
 
 
-  .recent-item{
-    
-    background-color: #FFFFFF;
-    border-radius: 14px;
-    padding: 17px;
-    margin: 10px;
-    box-shadow: 0 0 16pt #0000000B;
-  }
-
-  .recent-item-details{
-    position: absolute;
-    display: inline;
-    margin-left: 15px;
-  }
   
-  .recent-item-header{
-    display: block;
-    font-family: PoppinsMedium;
-    font-size: 18px;
-  }
-
-  .recent-item-time{
-    display: inline;
-    color: #000000DE;
-    opacity: 0.38;
-    font-family: Poppins;
-    font-size: 12px;
-    
-  }
-
-  .recent-item-status{
-    display: inline;
-    color: #2FC414;
-    font-family: Poppins;
-    font-size: 12px;
-    
-  }
-  .recent-item-caret{
-    float: right;
-    margin-top: 10px;
-  }
 
   .ellipse {
     border-radius: 50%;
@@ -113,26 +73,7 @@ ion-content{
     
   }
 
-  .ellipse-recent {
-    border-radius: 50%;
-    overflow: hidden;
-    background: #F0F6FF;
-    position: relative;
-    width: 40px;
-    height: 40px;
-    float: left;
-
-  }
   
-  .ellipse-recent img{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-    
-  }
 
   .tab-requests {
     

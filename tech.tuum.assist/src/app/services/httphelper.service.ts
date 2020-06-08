@@ -15,42 +15,20 @@ export class HttpHelper{
     
     private sendPost<T>(url, data) : Promise<T> {
         return new Promise((resolve, reject) =>{
-            var myHeaders = new Headers();
-            myHeaders.append("Authorization", environment.apiSecretKey);
-            myHeaders.append("Content-Type", "application/json");
+            console.log("url", url)
+            console.log("apiKey", environment.apiSecretKey)
 
-            var requestOptions = {
-                mode: ('no-cors' as RequestMode),
-                method: 'POST',
-                headers: myHeaders,
-                body: data
-              };
-
-            fetch(url, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                resolve(result as T)
+            let headers = new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': environment.apiSecretKey
             })
-            .catch(error => {
-
-                console.log('error', error)
-                reject(error)
+            console.log(headers)
+            this.http.post(url, data, { headers: headers}).toPromise().then(response =>{
+                console.log("sendpost", response)
+                resolve(response as T)
+            }).catch(err=>{
+                reject()
             });
-
-
-            // let headers = new HttpHeaders({
-            //     'Content-Type': 'application/json',
-            //     'Accept': '*/*',
-            //     'Authorization': environment.apiSecretKey
-            // })
-            
-            // this.http.post(url, data, { headers: headers}).toPromise().then(response =>{
-            //     console.log("sendpost", response)
-            //     resolve(response as T)
-            // }).catch(err=>{
-            //     console.log("send err", err)
-            //     reject(err)
-            // });
         })
     }
 
@@ -86,7 +64,7 @@ export class HttpHelper{
             this.sendPost<T>(url, data).then(r=>{
                 resolve(r);
             }).catch(err=>{
-                reject(err);
+                reject();
             })
         })
     }

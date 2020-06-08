@@ -1,10 +1,63 @@
 <ion-content class="ion-no-padding">
     <div style="height: 100%">
         <div class="header">
-            <img src="../../../assets/images/Back-Icon.png"  (click)="goBack()" />
-            <h2>Details</h2>            
+            <img src="../../../assets/images/icon-Close.png" (click)="goBack()" />
         </div>
+        <div class="recent-requests">
+            <div class="recent-item">
+                <img class="recent-item-icon" src="../../../assets/images/icon-did@2x.png" width="50px" />
+                <span class="recent-item-title">
+                    Request No:
+                </span>
+                <span class="recemt-item-id">
+                    {{request.id}}
+                </span>
+                <br>
+                <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> {{timeMoment}}</span>
+                <span [class]="statusClass"> <img [src]="statusIcon" height="12px" /> {{request.status}} </span>
+            </div>
+            <div class="blockchain-details" *ngIf="blockchainTx">
+                <div class="section-header">
+                    <span>Transaction Details</span>
+                </div>
+                <p>
+                    <span class="item-header">Transaction ID</span>
+                    <span class="item-value">{{blockchainTx.txid}}</span>
+                </p>
+                <p>
+                    <span class="item-header">Time Published</span>
+                    <span class="item-value">{{getMoment(blockchainTx.time)}}</span>
+                </p>
+                <p>
+                    <span class="item-header">Block ID</span>
+                    <span class="item-value">{{blockchainTx.blockhash}}</span>
+                </p>
+                <p>
+                    <span class="item-header">No of Confirmations</span>
+                    <span class="item-value">{{blockchainTx.confirmations}}</span>
+                </p>
+            </div>
+            <div class="request-details">
+                <div class="section-header">
+                    <span>Published Data</span>
+                </div>
+                <p>
+                    <span class="item-header">DID</span>
+                    <span class="item-value">did:elastos:{{request.did}} <img
+                            src="../../../assets/images/Icon-copy.png" /> </span>
+                </p>
+                <p *ngFor="let item of profileValues">
+                    <span class="item-header">{{item.header}}</span>
+                    <span class="item-value">{{item.value}}</span>
+                </p>
+                <div class="details-memo">
+                    <span>Message</span>
+                    {{memo}}
+                </div>
+              
+            </div>
 
+
+        </div>
     </div>
-  </ion-content>
-  
+</ion-content>

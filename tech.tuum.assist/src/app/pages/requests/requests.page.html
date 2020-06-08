@@ -4,33 +4,17 @@
     <div style="height: 100%">
         <div class="header">
             <img src="../../../assets/images/Back-Icon.png" (click)="goBack()" />
-            <h2>ID Publish</h2>            
+            <h2>{{title}}</h2>            
         </div>
         <div class="recent-requests">
            
+            <div class="details-memo">
+                <img src="../../../assets/images/icon-search@2x.png"  />
+                <input type="text" (keyup)="filterList($event.target.value)" placeholder="Search by request id" auto-grow="true" />
+            </div>
+            <request-item *ngFor="let request of filterRequests" [request]="request" (click)="openRequest(request.id)">
 
-            <div class="recent-item" (click)="gotoDetails('1354976468')">
-                <div class="ellipse-recent">
-                    <img src="../../../assets/images/DID Icon-1@2x.png" width="20px" />
-                </div>
-                <img src="../../../assets/images/icon-next.png" class="recent-item-caret" />
-                <div class="recent-item-details">
-                    <span class="recent-item-header">Request No: 1354976468</span>
-                    <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> 13 days ago ●</span>
-                    <span class="recent-item-status"> Published </span>
-                </div>
-            </div>
-            <div class="recent-item" (click)="gotoDetails('1354976468')">
-                <div class="ellipse-recent">
-                    <img src="../../../assets/images/DID Icon-1@2x.png" width="20px" />
-                </div>
-                <img src="../../../assets/images/icon-next.png" class="recent-item-caret" />
-                <div class="recent-item-details">
-                    <span class="recent-item-header">Request No: 12312312</span>
-                    <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> 5 days ago ●</span>
-                    <span class="recent-item-status"> Error </span>
-                </div>
-            </div>
+            </request-item>
 
         </div>
 

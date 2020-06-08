@@ -6,148 +6,7 @@ ion-content{
     .header{
       margin: 15px 15px 0px 15px;
     }
-  
-    ion-segment{
-          
-    
-      background-color: #F2F5FA;
-      --color: #000000DE;
-      --color-checked: #000000DE;
-      --indicator-color-checked: #000000DE;
-      font-family: PoppinsBold;
-      font-size: 20px;
-      font-weight: bold;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 1.27;
-      letter-spacing: 0.55px;
-      width: 50%;
-  
-      margin: 20px 15px;
-      
-    }
-  
-    .request-item{
-      
-      background-color: #FFFFFF;
-      border-radius: 15px;
-      padding: 17px;
-      margin: 10px 15px;
-      
-    }
-    
-    .request-item span{
-      position: absolute;
-      display: inline-block;
-      font-family: PoppinsMedium;
-      font-size: 18px;
-      margin-left: 15px;
-      margin-top: 6px;
-    }
-    .request-item-caret{
-      float: right;
-      margin-top: 10px;
-    }
-  
-  
-    .recent-item{
-      
-      background-color: #FFFFFF;
-      border-radius: 14px;
-      padding: 17px;
-      margin: 10px;
-      box-shadow: 0 0 16pt #0000000B;
-    }
-  
-    .recent-item-details{
-      position: absolute;
-      display: inline;
-      margin-left: 15px;
-    }
-    
-    .recent-item-header{
-      display: block;
-      font-family: PoppinsMedium;
-      font-size: 18px;
-    }
-  
-    .recent-item-time{
-      display: inline;
-      color: #000000DE;
-      opacity: 0.38;
-      font-family: Poppins;
-      font-size: 12px;
-      
-    }
-  
-    .recent-item-status{
-      display: inline;
-      color: #2FC414;
-      font-family: Poppins;
-      font-size: 12px;
-      
-    }
-    .recent-item-caret{
-      float: right;
-      margin-top: 10px;
-    }
-  
-    .ellipse {
-      border-radius: 50%;
-      overflow: hidden;
-      background: linear-gradient(180deg, #08BDFF,#0058FF);
-      position: relative;
-      width: 40px;
-      height: 40px;
-      float: left;
-  
-    }
-    
-    .ellipse img{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translateX(-50%) translateY(-50%);
-      -webkit-transform: translate(-50%,-50%);
-      transform: translate(-50%,-50%);
-      
-    }
-  
-    .ellipse-recent {
-      border-radius: 50%;
-      overflow: hidden;
-      background: #F0F6FF;
-      position: relative;
-      width: 40px;
-      height: 40px;
-      float: left;
-  
-    }
-    
-    .ellipse-recent img{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translateX(-50%) translateY(-50%);
-      -webkit-transform: translate(-50%,-50%);
-      transform: translate(-50%,-50%);
-      
-    }
-  
-    .tab-requests {
-      
-      display: flex;
-      flex-flow: column;
-      height: 100%;
-    }
-  
-    .tab-services {
-      
-      display: flex;
-      flex-flow: column;
-      height: 100%;
-    }
-  
+
     .recent-requests{
       background-color:#FFFFFF;
       border-radius: 13px 13px 0 0;
@@ -167,6 +26,36 @@ ion-content{
       font-family: PoppinsSemiBold;
       font-size: 24px;
     }
+
+    .details-memo{
+      display: block;
+      background-color: #EAF0F8;
+      border-radius: 8px;
+      padding: 8px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .details-memo img{
+      display: inline-block;
+      font-family: PoppinsMedium;
+      font-size: 14px;  
+      height: 24px;
+      
+    }
+
+    .details-memo input{
+      display: inline-block;
+      border-width: 0px;
+      margin-left: 10px;
+      height: 24px;
+      border-color: transparent;      
+      background-color: transparent;
+    }
+
+    .details-memo input, input:focus{
+      outline: none;
+  }
    
   }
   

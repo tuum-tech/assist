@@ -16,6 +16,7 @@ export class HomePage {
 
   public selectedTab: string
   public requests: RequestDTO[] = []
+  public isShowProfile: boolean = false;
 
   constructor(public navCtrl: NavController, 
               private appService: AppService,
@@ -36,10 +37,14 @@ export class HomePage {
     titleBarManager.setBackgroundColor("#005BFF");
     titleBarManager.setForegroundMode(TitleBarPlugin.TitleBarForegroundMode.LIGHT);
 
-    await this.getRequests()
+    
 
     
   }
+
+  async ionViewWillEnter(){
+    await this.getRequests()
+  } 
 
   tabChanged(ev: any) {
     console.log(ev.detail.value)
@@ -66,7 +71,15 @@ export class HomePage {
     this.navCtrl.navigateForward(['details']);
   }
 
+  get did(): string{
+    return AppService.signedIdentity.didString;
+  }
+
   openProfile(){
-    this.navCtrl.navigateForward(['create']);
+    this.isShowProfile = true
+  }
+
+  closeProfile(){
+    this.isShowProfile = false
   }
 }

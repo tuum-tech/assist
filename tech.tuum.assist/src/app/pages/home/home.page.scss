@@ -7,6 +7,8 @@ ion-content{
     margin: 15px 15px 0px 15px;
   }
 
+ 
+
   ion-segment{
         
   
@@ -107,6 +109,70 @@ ion-content{
   .recent-requests h2{
     font-family: PoppinsSemiBold;
     font-size: 24px;
+  }
+
+  .profile-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .profile-background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #000000;
+    opacity: 0.59;
+    
+  }
+
+  .profile-header {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 50%;
+    justify-content: center;
+    z-index: 99999;
+  }
+
+
+  .profile-details{
+    background-color:#FFFFFF;
+    opacity: 1 !important;
+    border-radius: 13px 13px 0 0;
+    position: relative;
+    
+    bottom: 0;
+    top: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100% ;
+    font-family: PoppinsLight;
+    padding: 10px 15px;
+  }
+  .profile-details-items{
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 40px 80px;
+  }
+  .profile-details-items img{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+  .profile-details-items span{
+    display: block;
+    
   }
  
 }

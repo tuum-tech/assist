@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Native } from './Native';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { LocalStorageService } from "./localstorage.service";
 declare let appManager: AppManagerPlugin.AppManager;
 declare let didManager: DIDPlugin.DIDManager;
 declare let didSessionManager: DIDSessionManagerPlugin.DIDSessionManager;
@@ -18,7 +19,7 @@ export class AppService {
     private isReceiveIntentReady = false;
 
 
-    constructor(public native: Native, private http: HttpClient) {
+    constructor(public native: Native, private http: HttpClient, private localStorage : LocalStorageService) {
 
         myService = this;
     }
@@ -39,23 +40,39 @@ export class AppService {
     tryDoLogin(): Promise<boolean> {
         var self = this;
 
-        return new Promise((resolve, reject) => {
-            AppService.signedIdentity = {
-                didString: "did:elastos:iWm3fwhsVbXJ1ecSi7n7Q9L6qNmH14FsuN",
-                didStoreId: "did:elastos:iWm3fwhsVbXJ1ecSi7n7Q9L6qNmH14FsuN#Primary",
-                name: "Ricardo Trapp"
-            };
-            resolve(true);
+        return new Promise(async (resolve, reject) => {
+           
+            let profile =  await this.localStorage.getProfile();
+            if (profile)
+            {
+                AppService.signedIdentity = profile;
+                resolve(true);
+                return;
+            }
 
             //did:elastos:iWm3fwhsVbXJ1ecSi7n7Q9L6qNmH14FsuN
-            // didSessionManager.getSignedInIdentity().then((id: DIDSessionManagerPlugin.IdentityEntry) => {
-            //     console.log('Signed ID', id);
-            //     AppService.signedIdentity = id;
-            //       resolve(true)    
-            //   }).catch(err =>{
-            //       console.log(err)
-            //       resolve(false)
-            //   });
+            appManager.sendIntent("credaccess", {
+                claims: 
+                    { 
+                        name: false
+                    }
+                },
+                {},
+                (response) => {
+                    var nameSubject = self.getSubject(response.result.presentation, "name");
+                    AppService.signedIdentity = {
+                                didString: response.result.did,
+                                didStoreId: response.result.did,
+                                name:  nameSubject || ""
+                            };
+                    this.localStorage.setProfile(AppService.signedIdentity)
+                    resolve(true);
+                    
+                },
+                function(err){
+                    console.log(err);
+                    resolve(false);
+                })
         });
 
     }
@@ -87,22 +104,7 @@ export class AppService {
         myService.native.go('/create');
     }
 
-    sendPost(url, data): Promise<any> {
-        return new Promise((resolve, reject) => {
-
-            let headers = new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': "assist-restapi-secret-key"
-            })
-            this.http.post(url, data, { "headers": headers }).toPromise().then(response => {
-                console.log(response)
-                resolve(response)
-            }).catch(err => {
-                console.log("send err", err)
-                reject(err)
-            });
-        })
-    }
+   
 
     sendIntentResponse(action, result, intentId) {
         appManager.sendIntentResponse(action, result, intentId, () => {

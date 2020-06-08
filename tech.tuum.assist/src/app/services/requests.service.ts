@@ -10,7 +10,7 @@ import { AppService } from "./app.service";
 export class RequestsService{
     
     static requestsList: string = "";
-    static requestId: string = "5ed969153087f024fecd83c2";
+    static requestId: string = "";
     constructor(private httpService: HttpHelper) {
     }
 

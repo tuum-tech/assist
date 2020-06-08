@@ -19,6 +19,7 @@ import { ComponentsModule } from './components/components.module';
 import { DetailsPage } from './pages/details/details.page';
 import { RequestsPage } from './pages/requests/requests.page';
 import { CreatePage } from './pages/create/create.page';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,10 @@ import { CreatePage } from './pages/create/create.page';
     AppRoutingModule,
     HttpClientModule,
     ComponentsModule,
+    IonicStorageModule.forRoot({
+      name: '__assistdb',
+      driverOrder: ['localstorage', 'indexeddb', 'sqlite', 'websql']
+  }),
     IonicModule.forRoot(),
     
   ],

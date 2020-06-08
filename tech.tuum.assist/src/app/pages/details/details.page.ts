@@ -20,7 +20,9 @@ export class DetailsPage {
   profileValues = []
 
   constructor(public navCtrl: NavController, private appService: AppService, private requestService: RequestsService) {
-    
+    if (!AppService.signedIdentity || AppService.signedIdentity.didString == ""){
+      this.navCtrl.navigateForward(['onboarding', { replaceUrl: true }]);
+    }
   }
 
   async ionViewDidEnter() {
@@ -35,8 +37,14 @@ export class DetailsPage {
     titleBarManager.setBackgroundColor("#005BFF");
     titleBarManager.setForegroundMode(TitleBarPlugin.TitleBarForegroundMode.LIGHT);
 
-    await this.getRequest()
+    
+
+    
   }
+
+  async ionViewWillEnter(){
+    await this.getRequest()
+  } 
 
   async getRequest(){
     
@@ -68,6 +76,7 @@ export class DetailsPage {
  }
 
  public getMoment(value: number) : string {
+   if (!value) return "No information"
   return moment.unix(value).format();
  }
 
@@ -81,7 +90,14 @@ export class DetailsPage {
  }
 
  public get blockchainTx(){
-  if (!this.request || !this.request.blockchainTx) return null;
+  if (!this.request || !this.request.blockchainTx) return {
+    txid: "Process not started",
+    time: null,
+    blockhash: "No information",
+    confirmations: "No information"
+  };
+
+
 
   return this.request.blockchainTx["result"]
  }

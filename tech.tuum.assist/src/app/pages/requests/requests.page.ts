@@ -36,11 +36,15 @@ export class RequestsPage {
     titleBarManager.setBackgroundColor("#005BFF");
     titleBarManager.setForegroundMode(TitleBarPlugin.TitleBarForegroundMode.LIGHT);
 
+   
+  }
+
+  async ionViewWillEnter(){
     if (RequestsService.requestsList == "identification") this.title = "ID Publish"
     if (RequestsService.requestsList == "media") this.title = "Media Uploads"
 
     await this.getRequests()
-  }
+  } 
 
   async getRequests() {
     var response = await this.requestService.getRequestsFromDidSessionAndType(RequestsService.requestsList);

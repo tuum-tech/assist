@@ -1,65 +1,81 @@
 <ion-content class="ion-no-padding">
   <div style="height: 100%">
-  
-  <div class="header">
-      <img src="../../../assets/images/Navbar-logo@2x.png" height="36px" />
-      <div style="float: right;">
-        <img src="../../../assets/images/icon-search@2x.png" height="36px" (click)="openProfile()" />
-        <img src="../../../assets/images/Nav-bar-Profile.png" (click)="openProfile()" />
+    <div class="home-content">
+      <div class="header">
+        <img src="../../../assets/images/Navbar-logo@2x.png" height="36px" />
+        <div style="float: right;">
+          <img src="../../../assets/images/icon-search@2x.png" height="36px" (click)="openProfile()" />
+          <img src="../../../assets/images/Nav-bar-Profile.png" (click)="openProfile()" />
+        </div>
       </div>
-  </div>
 
-  <div class="tab">
-      <ion-segment value="requests" (ionChange)="tabChanged($event)">
-          <ion-segment-button value="requests"  >
-              <ion-label>Requests</ion-label>
+      <div class="tab">
+        <ion-segment value="requests" (ionChange)="tabChanged($event)">
+          <ion-segment-button value="requests">
+            <ion-label>Requests</ion-label>
           </ion-segment-button>
           <ion-segment-button value="services">
-              <ion-label>Services</ion-label>
+            <ion-label>Services</ion-label>
           </ion-segment-button>
-      </ion-segment>
-  </div>
-
-  <div class="tab-requests" *ngIf="selectedTab=='requests'">
-
-    <div class="request-item" (click)="gotoRequests('identification')">
-      <div class="ellipse">
-        <img src="../../../assets/images/DID Icon@2x.png" width="20px" />
+        </ion-segment>
       </div>
-      <span>ID Publish</span>
-      <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
-      
-    </div>
 
-    <div class="request-item" (click)="gotoRequests('media')">
-      <img src="../../../assets/images/icon-media-upload@2x.png" width="40px"  />
-      <span>Media Uploads</span>
-      <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
-      
-    </div>
+      <div class="tab-requests" *ngIf="selectedTab=='requests'">
 
-    <div class="recent-requests" *ngIf="requests">
-      <h2>Recent</h2>
+        <div class="request-item" (click)="gotoRequests('identification')">
+          <div class="ellipse">
+            <img src="../../../assets/images/DID Icon@2x.png" width="20px" />
+          </div>
+          <span>ID Publish</span>
+          <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
 
-      <request-item *ngFor="let request of requests" [request]="request" (click)="openRequest(request.id)">
+        </div>
 
-      </request-item>
+        <div class="request-item" (click)="gotoRequests('media')">
+          <img src="../../../assets/images/icon-media-upload@2x.png" width="40px" />
+          <span>Media Uploads</span>
+          <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
+
+        </div>
+
+        <div class="recent-requests" *ngIf="requests">
+          <h2>Recent</h2>
+
+          <request-item *ngFor="let request of requests" [request]="request" (click)="openRequest(request.id)">
+
+          </request-item>
+        </div>
+
+      </div>
+
+      <div class="tab-services" *ngIf="selectedTab=='services'">
+        <div class="request-item">
+          <div class="ellipse">
+            <img src="../../../assets/images/icon-Media-Upload@3x.png" width="40px" />
+          </div>
+          <span>Media Upload</span>
+          <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
+
+        </div>
+
+
+      </div>
     </div>
     
   </div>
+  <div class="profile-content" *ngIf="isShowProfile">
+    <div class="profile-background">
 
-  <div class="tab-services" *ngIf="selectedTab=='services'">
-    <div class="request-item">
-      <div class="ellipse">
-        <img src="../../../assets/images/icon-Media-Upload@3x.png" width="40px"  />
-      </div>
-      <span>Media Upload</span>
-      <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
-      
     </div>
-
-   
+    <div class="profile-header">
+      <img src="../../../assets/images/icon-Close.png" (click)="closeProfile()" />
+    </div>
+    <div class="profile-details">
+        <div class="profile-details-items">
+          <img src="../../../assets/images/icon-Profile.png" />
+          <span><b>DID</b></span>
+          <span>{{did}}</span>
+        </div>
+    </div>
   </div>
-
-</div>
 </ion-content>

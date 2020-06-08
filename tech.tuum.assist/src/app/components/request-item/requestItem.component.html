@@ -4,7 +4,9 @@
     </div>
     <img src="../../../assets/images/icon-next.png" class="recent-item-caret" />
     <div class="recent-item-details" >
-      <span class="recent-item-header"><b>Request No:</b> {{request.id}}</span>
+      <span class="recent-item-header">
+        <b>Confirmation No:</b><br> {{request.id}}
+      </span>
       <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> {{timeMoment}} ● </span>
       <span [class]="statusClass"> {{request.status}} </span>
     </div>

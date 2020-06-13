@@ -30,10 +30,12 @@
   "default_locale": "en",
   "plugins": [
     "Device",
-    "NetworkStatus"
+    "NetworkStatus",
+    "DIDSessionManagerPlugin",
+    "DIDPlugin"
   ],
   "urls": [
-    "http://192.168.1.253:8000/*"
+    "http://192.168.1.117:8000/*"
   ],
     "intent_filters": [
         {

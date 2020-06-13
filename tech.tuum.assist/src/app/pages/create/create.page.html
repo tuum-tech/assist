@@ -1,0 +1,64 @@
+<ion-content class="ion-no-padding">
+    <div style="height: 100%" *ngIf="hasTransaction">
+        <div class="header">
+            <img src="../../../assets/images/Navbar-logo@2x.png" height="36px" />
+        </div>
+
+        <div class="details">
+            <div class="before-publish" *ngIf="endTransaction == false">
+                <h2>Publish your DID credentials to the blockchain.</h2>
+                <h3>Please review before publish</h3>
+    
+                <p>
+                    <span class="item-header">DID</span>
+                    <span class="item-value">{{did}}</span>
+                </p>
+    
+                <p *ngFor="let item of profileValues">
+                    <span class="item-header">{{item.header}}</span>
+                    <span class="item-value">{{item.value}}</span>
+                </p>
+    
+                <div class="details-memo">
+                    <span>Message</span>
+                    <ion-textarea [value]="memo" placeholder="Enter a personal information here..." auto-grow="true"  ></ion-textarea>
+                </div>
+    
+                <br />
+                
+                <div class="buttons">
+                    <div class="button-cancel" (click)="doCancel()">
+                        Cancel
+                        <ion-ripple-effect></ion-ripple-effect>
+                    </div>
+                    <div class="button-publish" (click)="doPublish()">
+                        Publish
+                        <ion-ripple-effect></ion-ripple-effect>
+                    </div>
+                </div>
+            </div>
+            <div class="after-publish" *ngIf="endTransaction == true">
+                <h2>Your ID was published successfully.</h2>
+                
+                <span class="item-header">You can track your requests from app using</span>
+
+                <p>
+                    <span class="item-header">Confirmation No:</span>
+                    <span class="item-value">{{requestId}}  </span>
+                </p>
+
+                <span class="item-header">Redirecting in {{timer}} secs...</span>
+
+                <div class="buttons">
+                    <div class="button-publish" (click)="returnTransaction()">
+                        Continue
+                        <ion-ripple-effect></ion-ripple-effect>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+  </ion-content>
+  

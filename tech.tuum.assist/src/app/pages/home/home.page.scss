@@ -1,0 +1,178 @@
+
+ion-content{
+  --background: #F2F5FA;
+  height: 100%;
+
+  .header{
+    margin: 15px 15px 0px 15px;
+  }
+
+ 
+
+  ion-segment{
+        
+  
+    background-color: #F2F5FA;
+    --color: #000000DE;
+    --color-checked: #000000DE;
+    --indicator-color-checked: #000000DE;
+    font-family: PoppinsBold;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: 0.55px;
+    width: 50%;
+
+    margin: 20px 15px;
+    
+  }
+
+  .request-item{
+    
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 17px;
+    margin: 10px 15px;
+    
+  }
+  
+  .request-item span{
+    position: absolute;
+    display: inline-block;
+    font-family: PoppinsMedium;
+    font-size: 18px;
+    margin-left: 15px;
+    margin-top: 6px;
+  }
+  .request-item-caret{
+    float: right;
+    margin-top: 10px;
+  }
+
+
+  
+
+  .ellipse {
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #08BDFF,#0058FF);
+    position: relative;
+    width: 40px;
+    height: 40px;
+    float: left;
+
+  }
+  
+  .ellipse img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    
+  }
+
+  
+
+  .tab-requests {
+    
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+
+  .tab-services {
+    
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+
+  .recent-requests{
+    background-color:#FFFFFF;
+    border-radius: 13px 13px 0 0;
+    position: relative;
+    
+    bottom: 0;
+    top: 12px;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+
+    padding: 10px 15px;
+  }
+
+  .recent-requests h2{
+    font-family: PoppinsSemiBold;
+    font-size: 24px;
+  }
+
+  .profile-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .profile-background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #000000;
+    opacity: 0.59;
+    
+  }
+
+  .profile-header {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 50%;
+    justify-content: center;
+    z-index: 99999;
+  }
+
+
+  .profile-details{
+    background-color:#FFFFFF;
+    opacity: 1 !important;
+    border-radius: 13px 13px 0 0;
+    position: relative;
+    
+    bottom: 0;
+    top: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100% ;
+    font-family: PoppinsLight;
+    padding: 10px 15px;
+  }
+  .profile-details-items{
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 40px 80px;
+  }
+  .profile-details-items img{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+  .profile-details-items span{
+    display: block;
+    
+  }
+ 
+}

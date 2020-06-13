@@ -1,0 +1,22 @@
+<ion-content class="ion-no-padding">
+
+
+    <div style="height: 100%">
+        <div class="header">
+            <img src="../../../assets/images/Back-Icon.png" (click)="goBack()" />
+            <h2>{{title}}</h2>            
+        </div>
+        <div class="recent-requests">
+           
+            <div class="details-memo">
+                <img src="../../../assets/images/icon-search@2x.png"  />
+                <input type="text" (keyup)="filterList($event.target.value)" placeholder="Search by confirmation id" auto-grow="true" />
+            </div>
+            <request-item *ngFor="let request of filterRequests" [request]="request" (click)="openRequest(request.id)">
+
+            </request-item>
+
+        </div>
+
+    </div>
+</ion-content>

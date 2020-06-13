@@ -1,0 +1,61 @@
+
+ion-content{
+    --background: #F2F5FA;
+    height: 100%;
+  
+    .header{
+      margin: 15px 15px 0px 15px;
+    }
+
+    .recent-requests{
+      background-color:#FFFFFF;
+      border-radius: 13px 13px 0 0;
+      position: relative;
+      
+      bottom: 0;
+      top: 12px;
+      width: 100%;
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+  
+      padding: 10px 15px;
+    }
+  
+    .recent-requests h2{
+      font-family: PoppinsSemiBold;
+      font-size: 24px;
+    }
+
+    .details-memo{
+      display: block;
+      background-color: #EAF0F8;
+      border-radius: 8px;
+      padding: 8px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .details-memo img{
+      display: inline-block;
+      font-family: PoppinsMedium;
+      font-size: 14px;  
+      height: 24px;
+      
+    }
+
+    .details-memo input{
+      display: inline-block;
+      border-width: 0px;
+      margin-left: 10px;
+      height: 24px;
+      border-color: transparent;      
+      background-color: transparent;
+    }
+
+    .details-memo input, input:focus{
+      outline: none;
+  }
+   
+  }
+  

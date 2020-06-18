@@ -97,6 +97,7 @@ export class CreatePage {
 
   doPublish() {
     let action = "/v1/didtx/create"
+    console.log("memo", this.memo)
     let data = {
       "didRequest" : AppService.intentConfig.transfer.didrequest,
       "requestFrom": AppService.intentConfig.transfer.from,
@@ -135,6 +136,11 @@ export class CreatePage {
 
   doCancel(){
     this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, {  }, AppService.intentConfig.transfer.intentId);
+  }
+
+  copy(value){
+    this.appService.copyClipboard(value);
+    this.appService.toast("Copied to clipboard")
   }
  
 }

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
-
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { MyApp } from './app.component';
 
 import { HomePage } from './pages/home/home.page';
@@ -20,6 +20,7 @@ import { DetailsPage } from './pages/details/details.page';
 import { RequestsPage } from './pages/requests/requests.page';
 import { CreatePage } from './pages/create/create.page';
 import { IonicStorageModule } from '@ionic/storage';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { IonicStorageModule } from '@ionic/storage';
     AppRoutingModule,
     HttpClientModule,
     ComponentsModule,
+    FormsModule,
     IonicStorageModule.forRoot({
       name: '__assistdb',
       driverOrder: ['localstorage', 'indexeddb', 'sqlite', 'websql']
@@ -59,6 +61,7 @@ import { IonicStorageModule } from '@ionic/storage';
     SplashScreen,
     Platform,
     Native,
+    Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: ErrorHandler, useClass: ErrorHandler}
   ]

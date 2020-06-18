@@ -12,7 +12,7 @@
                 <img src="../../../assets/images/icon-search@2x.png"  />
                 <input type="text" (keyup)="filterList($event.target.value)" placeholder="Search by confirmation id" auto-grow="true" />
             </div>
-            <request-item *ngFor="let request of filterRequests" [request]="request" (click)="openRequest(request.id)">
+            <request-item *ngFor="let request of filterRequests" [request]="request" [highlight]="search" (click)="openRequest(request.id)">
 
             </request-item>
 

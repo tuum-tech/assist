@@ -41,7 +41,6 @@ export class HttpHelper{
             this.http.get(url, { headers: headers}).toPromise().then(response =>{
                 resolve(response as T)
             }).catch(err=>{
-                console.log("send err", err)
                 reject(err)
             });
         })

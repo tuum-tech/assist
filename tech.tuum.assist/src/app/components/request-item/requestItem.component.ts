@@ -9,6 +9,7 @@ import * as moment from 'moment'
 export class RequestItemComponent implements OnInit {
  
   @Input() request: RequestDTO;
+  @Input() highlight: string;
 
   constructor() {}
 
@@ -23,6 +24,20 @@ export class RequestItemComponent implements OnInit {
        return moment(this.request.modified).fromNow()
     }
     return moment(this.request.created).fromNow()
+
+ }
+
+ public get recentIdHighlighted(): string{
+  
+   if (!this.request) return "";
+   if (!this.highlight) return this.request.id;
+
+  
+  
+   var replace = new RegExp(this.highlight, 'g');
+   var subsTo = `<b>${this.highlight}</b>`
+
+   return this.request.id.replace(replace, subsTo);
 
  }
 

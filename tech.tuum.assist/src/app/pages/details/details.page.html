@@ -22,7 +22,10 @@
                 </div>
                 <p>
                     <span class="item-header">Transaction Hash</span>
-                    <span class="item-value">{{blockchainTx.txid}}</span>
+                    <span class="item-value">
+                        {{blockchainTx.txid}}
+                        <img src="../../../assets/images/Icon-copy.png" (click)="copy(blockchainTx.txid)" />
+                    </span>
                 </p>
                 <p>
                     <span class="item-header">Time Published</span>
@@ -30,7 +33,10 @@
                 </p>
                 <p>
                     <span class="item-header">Block Hash</span>
-                    <span class="item-value">{{blockchainTx.blockhash}}</span>
+                    <span class="item-value">
+                        {{blockchainTx.blockhash}}
+                        <img src="../../../assets/images/Icon-copy.png" (click)="copy(blockchainTx.blockhash)" />
+                    </span>
                 </p>
                 <p>
                     <span class="item-header">No of Confirmations</span>
@@ -44,7 +50,7 @@
                 <p>
                     <span class="item-header">DID</span>
                     <span class="item-value">did:elastos:{{request.did}} <img
-                            src="../../../assets/images/Icon-copy.png" /> </span>
+                            src="../../../assets/images/Icon-copy.png" (click)="copy(request.did)" /> </span>
                 </p>
                 <p *ngFor="let item of profileValues">
                     <span class="item-header">{{item.header}}</span>
@@ -52,7 +58,7 @@
                 </p>
                 <div class="details-memo">
                     <span>Message</span>
-                    {{memo}}
+                    {{request.memo}}
                 </div>
               
             </div>

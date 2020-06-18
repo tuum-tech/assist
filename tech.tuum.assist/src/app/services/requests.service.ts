@@ -16,6 +16,10 @@ export class RequestsService{
 
     getRequestsFromDidSession() : Promise<RequestDTO[]> {
         return new Promise<RequestDTO[]>(async (resolve, reject) =>{
+            if (!AppService.signedIdentity){
+                resolve([])
+                return
+            }
             var action = `/v1/didtx/did/${AppService.signedIdentity.didString}`
             var response = await this.httpService.get<HttpResponseDTO>(action);
             if (response.meta["code"] == 200){
@@ -26,15 +30,36 @@ export class RequestsService{
         })
     }
 
-    getRequestFromId(requestId: string) : Promise<RequestDTO> {
-        return new Promise<RequestDTO>(async (resolve, reject) =>{
-            var action = `/v1/didtx/confirmation_id/${requestId}`
+    getRecentRequestsFromDidSession() : Promise<RequestDTO[]> {
+        return new Promise<RequestDTO[]>(async (resolve, reject) =>{
+            if (!AppService.signedIdentity){
+                resolve([])
+                return
+            }
+
+            var action = `/v1/didtx/recent/did/${AppService.signedIdentity.didString}`
             var response = await this.httpService.get<HttpResponseDTO>(action);
             if (response.meta["code"] == 200){
-                resolve(response.data as RequestDTO)
+                resolve(response.data as RequestDTO[])
             } else {
                 reject(response.meta["message"])
             }           
+        })
+    }
+
+    getRequestFromId(requestId: string) : Promise<RequestDTO> {
+        return new Promise<RequestDTO>((resolve, reject) =>{
+            var action = `/v1/didtx/confirmation_id/${requestId}`
+            this.httpService.get<HttpResponseDTO>(action).then(response =>{
+                if (response.meta["code"] == 200){
+                    resolve(response.data as RequestDTO)
+                } else {
+                   resolve(null)
+                }           
+            }).catch(err=>{
+                resolve(null)   
+            });
+            
         })
     }
 

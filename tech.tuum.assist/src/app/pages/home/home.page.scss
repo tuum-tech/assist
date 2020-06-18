@@ -164,7 +164,7 @@ ion-content{
     display: block;
     padding: 40px 80px;
   }
-  .profile-details-items img{
+  .profile-details-img{
     position: relative;
     width: 100px;
     height: 100px;
@@ -174,5 +174,19 @@ ion-content{
     display: block;
     
   }
+
+  .header input{
+    display: inline-block;
+    border-width: 0px;
+    margin-left: 10px;
+    height: 24px;
+    width: 170px;
+    border-color: transparent;      
+    background-color: transparent;
+  }
+
+  .header input, input:focus{
+    outline: none;
+}
  
 }

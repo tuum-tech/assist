@@ -4,7 +4,8 @@
       <div class="header">
         <img src="../../../assets/images/Navbar-logo@2x.png" height="36px" />
         <div style="float: right;">
-          <img src="../../../assets/images/icon-search@2x.png" height="36px" (click)="openProfile()" />
+          <input *ngIf="isSearchOpen" type="text" [(ngModel)]="search" placeholder="Find by confirmation id" />
+          <img src="../../../assets/images/icon-search@2x.png" height="36px" (click)="openSearch()" />
           <img src="../../../assets/images/Nav-bar-Profile.png" (click)="openProfile()" />
         </div>
       </div>
@@ -72,9 +73,12 @@
     </div>
     <div class="profile-details">
         <div class="profile-details-items">
-          <img src="../../../assets/images/icon-Profile.png" />
+          <img class="profile-details-img" src="../../../assets/images/icon-Profile.png" />
           <span><b>DID</b></span>
-          <span>{{did}}</span>
+          <span>
+            {{did}}
+            <img src="../../../assets/images/Icon-copy.png" (click)="copy(did)" />
+          </span>
         </div>
     </div>
   </div>

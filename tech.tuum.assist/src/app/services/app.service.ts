@@ -2,6 +2,12 @@ import { Injectable } from "@angular/core";
 import { Native } from './Native';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStorageService } from "./localstorage.service";
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import {
+    LoadingController,
+    ToastController,
+} from '@ionic/angular';
+
 declare let appManager: AppManagerPlugin.AppManager;
 declare let didManager: DIDPlugin.DIDManager;
 declare let didSessionManager: DIDSessionManagerPlugin.DIDSessionManager;
@@ -19,7 +25,11 @@ export class AppService {
     private isReceiveIntentReady = false;
 
 
-    constructor(public native: Native, private http: HttpClient, private localStorage : LocalStorageService) {
+    constructor(public native: Native, 
+                private http: HttpClient, 
+                private clipboard: Clipboard,
+                private toastCtrl: ToastController,
+                private localStorage : LocalStorageService) {
 
         myService = this;
     }
@@ -114,4 +124,18 @@ export class AppService {
         });
 
     }
+
+    public copyClipboard(text) {
+        return this.clipboard.copy(text);
+      }
+    
+    public toast(message: string = 'Operation completed', duration: number = 2000): void {
+        this.toastCtrl
+          .create({
+            "message": message,
+            "duration": 2000,
+            "position": 'middle',
+          })
+          .then((toast) => toast.present());
+      }
 }

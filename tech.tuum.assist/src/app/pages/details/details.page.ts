@@ -98,8 +98,7 @@ export class DetailsPage {
     confirmations: "No information"
   };
 
-  console.log(this.request)
-  console.log(this.request.blockchainTx)
+  
 
   return this.request.blockchainTx["result"]
  }
@@ -114,13 +113,18 @@ export class DetailsPage {
 
 
   goBack(){
-    console.log("back clicked")
     this.navCtrl.back();
   }
 
   copy(value){
     this.appService.copyClipboard(value);
     this.appService.toast("Copied to clipboard")
+  }
+
+  isOwnRequest() : boolean{
+    if (!AppService.signedIdentity || !this.request) return false
+    var did = AppService.signedIdentity.didString.replace('did:elastos:', '');
+    return did === this.request.did
   }
  
 }

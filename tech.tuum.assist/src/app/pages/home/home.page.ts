@@ -49,7 +49,6 @@ export class HomePage {
   } 
 
   tabChanged(ev: any) {
-    console.log(ev.detail.value)
     this.selectedTab = ev.detail.value;
   }
 
@@ -58,7 +57,6 @@ export class HomePage {
   async getRequests(){
     var response = await this.requestService.getRecentRequestsFromDidSession();
     this.requests = response
-    console.log("Requests", this.requests)
   }
 
   gotoRequests(requestType: string)
@@ -68,7 +66,6 @@ export class HomePage {
   }
 
   openRequest(requestId: string) {
-    console.log("openrequest", requestId)
     RequestsService.requestId = requestId
     this.navCtrl.navigateForward(['details']);
   }

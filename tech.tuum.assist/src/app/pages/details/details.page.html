@@ -56,7 +56,7 @@
                     <span class="item-header">{{item.header}}</span>
                     <span class="item-value">{{item.value}}</span>
                 </p>
-                <div class="details-memo">
+                <div class="details-memo" *ngIf="isOwnRequest()">
                     <span>Message</span>
                     {{request.memo}}
                 </div>

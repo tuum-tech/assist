@@ -59,8 +59,7 @@ export class AppService {
                 resolve(true);
                 return;
             }
-
-            //did:elastos:iWm3fwhsVbXJ1ecSi7n7Q9L6qNmH14FsuN
+            
             appManager.sendIntent("credaccess", {
                 claims: 
                     { 
@@ -70,6 +69,7 @@ export class AppService {
                 {},
                 (response) => {
                     var nameSubject = self.getSubject(response.result.presentation, "name");
+                    console.log(response)
                     AppService.signedIdentity = {
                                 didString: response.result.did,
                                 didStoreId: response.result.did,

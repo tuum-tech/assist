@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RequestDTO } from '../../models/request.model';
 import * as moment from 'moment'
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'request-item',
   templateUrl: './requestItem.component.html',
@@ -9,8 +10,9 @@ import * as moment from 'moment'
 export class RequestItemComponent implements OnInit {
  
   @Input() request: RequestDTO;
+  @Input() highlight: string;
 
-  constructor() {}
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
    
@@ -23,6 +25,20 @@ export class RequestItemComponent implements OnInit {
        return moment(this.request.modified).fromNow()
     }
     return moment(this.request.created).fromNow()
+
+ }
+
+ public get recentIdHighlighted(){
+  
+   if (!this.request) return "";
+   if (!this.highlight) return this.request.id;
+
+  
+  
+   var replace = new RegExp(this.highlight, 'g');
+   var subsTo = `<span style='font-family: PoppinsBold; font-size: 18px; color: red;'>${this.highlight}</span>`
+
+   return this.sanitizer.bypassSecurityTrustHtml(this.request.id.replace(replace, subsTo));
 
  }
 

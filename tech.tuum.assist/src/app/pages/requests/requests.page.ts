@@ -49,7 +49,6 @@ export class RequestsPage {
   async getRequests() {
     var response = await this.requestService.getRequestsFromDidSessionAndType(RequestsService.requestsList);
     this.requests = response
-    console.log("Requests", this.requests)
   }
 
   filterList(value) {
@@ -60,14 +59,10 @@ export class RequestsPage {
   get filterRequests(): RequestDTO[] {
 
     if (this.search == "") return this.requests;
-
     let items = []
-    let filtered = this.requests.forEach((request, index) => {
-      console.log("filtered", this.search, request.id)
+    this.requests.forEach((request, index) => {
       let indexFound = request.id.toUpperCase().lastIndexOf(this.search.toUpperCase())
-      console.log("index get", indexFound)
       if (indexFound >= 0) {
-        console.log("found")
         items.push(request);
       }
     })

@@ -102,12 +102,33 @@ export class CreatePage {
       "requestFrom": AppService.intentConfig.transfer.from,
       "memo": this.memo || ""
     }
-    this.httpService.post<PostDTO>(action, data).then(response=>{
-      console.log("Confirmation", response)
-      this.timer = 20;
-      this.requestId = response.data["confirmation_id"];
-      this.startTimer();
-      this.endTransaction = true;
+    this.httpService.post<PostDTO>(action, data).then(async response=>{
+
+      if (response.data["confirmation_id"] == "")
+      {
+          this.appService.presentAlert(
+            "You reached your limit to publish profile using Assist Capsule",
+             () =>{
+               this.doCancel();
+             });
+      } else {
+        this.timer = 20;
+        this.requestId = response.data["confirmation_id"];
+        this.endTransaction = true;
+        if (response.data["duplicate"] == true)
+        {
+          this.appService.presentAlert("You already published this profile version",
+          () =>{
+            this.startTimer();
+          })
+        } else {
+          this.startTimer();
+        }
+        
+      }
+
+      
+      
     }).catch(error =>{
       console.log("error");
     })
@@ -135,6 +156,11 @@ export class CreatePage {
 
   doCancel(){
     this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, {  }, AppService.intentConfig.transfer.intentId);
+  }
+
+  copy(value){
+    this.appService.copyClipboard(value);
+    this.appService.toast("Copied to clipboard")
   }
  
 }

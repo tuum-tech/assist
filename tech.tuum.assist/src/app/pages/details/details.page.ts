@@ -90,16 +90,21 @@ export class DetailsPage {
  }
 
  public get blockchainTx(){
-  if (!this.request || !this.request.blockchainTx) return {
+  
+  if (!this.request || !this.request.blockchainTx || !this.request.blockchainTx["result"]) return {
     txid: "Process not started",
     time: null,
     blockhash: "No information",
     confirmations: "No information"
   };
 
-
+  
 
   return this.request.blockchainTx["result"]
+ }
+
+ public get HasBlockhainTx(){
+   return (this.request && this.request.blockchainTx && this.request.blockchainTx["result"])
  }
 
  public get statusIcon(): string{
@@ -112,8 +117,18 @@ export class DetailsPage {
 
 
   goBack(){
-    console.log("back clicked")
     this.navCtrl.back();
+  }
+
+  copy(value){
+    this.appService.copyClipboard(value);
+    this.appService.toast("Copied to clipboard")
+  }
+
+  isOwnRequest() : boolean{
+    if (!AppService.signedIdentity || !this.request) return false
+    var did = AppService.signedIdentity.didString.replace('did:elastos:', '');
+    return did === this.request.did
   }
  
 }

@@ -5,7 +5,7 @@
     <img src="../../../assets/images/icon-next.png" class="recent-item-caret" />
     <div class="recent-item-details" >
       <span class="recent-item-header">
-        <b>Confirmation No:</b><br> {{request.id}}
+        <b>Confirmation No:</b><br> <div [innerHTML]="recentIdHighlighted"></div> 
       </span>
       <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> {{timeMoment}} ● </span>
       <span [class]="statusClass"> {{request.status}} </span>

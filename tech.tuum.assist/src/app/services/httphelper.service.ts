@@ -24,7 +24,6 @@ export class HttpHelper{
             })
             console.log(headers)
             this.http.post(url, data, { headers: headers}).toPromise().then(response =>{
-                console.log("sendpost", response)
                 resolve(response as T)
             }).catch(err=>{
                 reject()
@@ -41,7 +40,6 @@ export class HttpHelper{
             this.http.get(url, { headers: headers}).toPromise().then(response =>{
                 resolve(response as T)
             }).catch(err=>{
-                console.log("send err", err)
                 reject(err)
             });
         })

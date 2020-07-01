@@ -21,7 +21,7 @@
     
                 <div class="details-memo">
                     <span>Message</span>
-                    <ion-textarea [value]="memo" placeholder="Enter a personal information here..." auto-grow="true"  ></ion-textarea>
+                    <ion-textarea  placeholder="Enter a personal information here..." auto-grow="true" [(ngModel)]="memo"  ></ion-textarea>
                 </div>
     
                 <br />
@@ -44,7 +44,10 @@
 
                 <p>
                     <span class="item-header">Confirmation No:</span>
-                    <span class="item-value">{{requestId}}  </span>
+                    <span class="item-value">
+                        {{requestId}}
+                        <img src="../../../assets/images/Icon-copy.png" (click)="copy(requestId)" />
+                    </span>
                 </p>
 
                 <span class="item-header">Redirecting in {{timer}} secs...</span>

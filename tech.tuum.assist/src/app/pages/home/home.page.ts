@@ -17,6 +17,8 @@ export class HomePage {
   public selectedTab: string
   public requests: RequestDTO[] = []
   public isShowProfile: boolean = false;
+  public isSearchOpen:boolean = false;
+  public search:string = "";
 
   constructor(public navCtrl: NavController, 
               private appService: AppService,
@@ -47,16 +49,14 @@ export class HomePage {
   } 
 
   tabChanged(ev: any) {
-    console.log(ev.detail.value)
     this.selectedTab = ev.detail.value;
   }
 
- 
+  
 
   async getRequests(){
-    var response = await this.requestService.getRequestsFromDidSession();
+    var response = await this.requestService.getRecentRequestsFromDidSession();
     this.requests = response
-    console.log("Requests", this.requests)
   }
 
   gotoRequests(requestType: string)
@@ -66,7 +66,6 @@ export class HomePage {
   }
 
   openRequest(requestId: string) {
-    console.log("openrequest", requestId)
     RequestsService.requestId = requestId
     this.navCtrl.navigateForward(['details']);
   }
@@ -82,4 +81,32 @@ export class HomePage {
   closeProfile(){
     this.isShowProfile = false
   }
+
+  async openSearch(){
+    if (this.isSearchOpen){
+      if (this.search){
+        var response = await this.requestService.getRequestFromId(this.search);
+        if (response){
+           this.openRequest(this.search)
+        } else {
+          this.appService.toast(`${this.search} not found`)
+        }
+        
+      }
+    } else {
+      this.search = "";
+    }
+    this.isSearchOpen = !this.isSearchOpen
+
+  }
+
+  copy(value){
+    this.appService.copyClipboard(value);
+    this.appService.toast("Copied to clipboard")
+  }
+
+  async openMediaUpload(){
+    await this.appService.presentAlert("This feature is not available")
+  }
+
 }

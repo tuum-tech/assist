@@ -2,6 +2,13 @@ import { Injectable } from "@angular/core";
 import { Native } from './Native';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStorageService } from "./localstorage.service";
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import {
+    LoadingController,
+    ToastController,
+    AlertController
+} from '@ionic/angular';
+
 declare let appManager: AppManagerPlugin.AppManager;
 declare let didManager: DIDPlugin.DIDManager;
 declare let didSessionManager: DIDSessionManagerPlugin.DIDSessionManager;
@@ -19,7 +26,12 @@ export class AppService {
     private isReceiveIntentReady = false;
 
 
-    constructor(public native: Native, private http: HttpClient, private localStorage : LocalStorageService) {
+    constructor(public native: Native, 
+                private http: HttpClient, 
+                private clipboard: Clipboard,
+                private toastCtrl: ToastController,
+                private alertController: AlertController,
+                private localStorage : LocalStorageService) {
 
         myService = this;
     }
@@ -37,6 +49,20 @@ export class AppService {
         }
     }
 
+    async presentAlert(message, action = null) {
+        if (action == null) action = ()=>{};
+        const alert = await this.alertController.create({
+          header: 'Alert',
+          message: message,
+          buttons: [ {
+            text: 'OK',
+            handler: action
+          }]
+        });
+    
+        await alert.present();
+      }
+
     tryDoLogin(): Promise<boolean> {
         var self = this;
 
@@ -49,8 +75,7 @@ export class AppService {
                 resolve(true);
                 return;
             }
-
-            //did:elastos:iWm3fwhsVbXJ1ecSi7n7Q9L6qNmH14FsuN
+            
             appManager.sendIntent("credaccess", {
                 claims: 
                     { 
@@ -60,6 +85,7 @@ export class AppService {
                 {},
                 (response) => {
                     var nameSubject = self.getSubject(response.result.presentation, "name");
+                    console.log(response)
                     AppService.signedIdentity = {
                                 didString: response.result.did,
                                 didStoreId: response.result.did,
@@ -114,4 +140,18 @@ export class AppService {
         });
 
     }
+
+    public copyClipboard(text) {
+        return this.clipboard.copy(text);
+      }
+    
+    public toast(message: string = 'Operation completed', duration: number = 2000): void {
+        this.toastCtrl
+          .create({
+            "message": message,
+            "duration": 2000,
+            "position": 'middle',
+          })
+          .then((toast) => toast.present());
+      }
 }

@@ -103,6 +103,10 @@ export class DetailsPage {
   return this.request.blockchainTx["result"]
  }
 
+ public get HasBlockhainTx(){
+   return (this.request && this.request.blockchainTx && this.request.blockchainTx["result"])
+ }
+
  public get statusIcon(): string{
   if (this.request){
     if (this.request.status == "Completed") return "../../../assets/images/Icon feather-check-circle-1.png"

@@ -24,7 +24,7 @@
                     <span class="item-header">Transaction Hash</span>
                     <span class="item-value">
                         {{blockchainTx.txid}}
-                        <img src="../../../assets/images/Icon-copy.png" (click)="copy(blockchainTx.txid)" />
+                        <img *ngIf="HasBlockhainTx" src="../../../assets/images/Icon-copy.png" (click)="copy('https://www.idchain.elastos.org/tx/' + blockchainTx.txid)" />
                     </span>
                 </p>
                 <p>
@@ -35,7 +35,7 @@
                     <span class="item-header">Block Hash</span>
                     <span class="item-value">
                         {{blockchainTx.blockhash}}
-                        <img src="../../../assets/images/Icon-copy.png" (click)="copy(blockchainTx.blockhash)" />
+                        <img *ngIf="HasBlockhainTx" src="../../../assets/images/Icon-copy.png" (click)="copy(blockchainTx.blockhash)" />
                     </span>
                 </p>
                 <p>

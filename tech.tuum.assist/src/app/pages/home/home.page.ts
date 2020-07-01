@@ -105,4 +105,8 @@ export class HomePage {
     this.appService.toast("Copied to clipboard")
   }
 
+  async openMediaUpload(){
+    await this.appService.presentAlert("This feature is not available")
+  }
+
 }

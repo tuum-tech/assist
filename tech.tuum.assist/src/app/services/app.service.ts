@@ -6,6 +6,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import {
     LoadingController,
     ToastController,
+    AlertController
 } from '@ionic/angular';
 
 declare let appManager: AppManagerPlugin.AppManager;
@@ -29,6 +30,7 @@ export class AppService {
                 private http: HttpClient, 
                 private clipboard: Clipboard,
                 private toastCtrl: ToastController,
+                private alertController: AlertController,
                 private localStorage : LocalStorageService) {
 
         myService = this;
@@ -46,6 +48,20 @@ export class AppService {
             });
         }
     }
+
+    async presentAlert(message, action = null) {
+        if (action == null) action = ()=>{};
+        const alert = await this.alertController.create({
+          header: 'Alert',
+          message: message,
+          buttons: [ {
+            text: 'OK',
+            handler: action
+          }]
+        });
+    
+        await alert.present();
+      }
 
     tryDoLogin(): Promise<boolean> {
         var self = this;

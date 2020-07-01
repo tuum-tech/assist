@@ -11,6 +11,9 @@
                 </span>
                 <span class="recemt-item-id">
                     {{request.id}}
+
+                    <img
+                    src="../../../assets/images/Icon-copy.png" (click)="copy(request.id)" />
                 </span>
                 <br>
                 <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> {{timeMoment}}</span>
@@ -24,7 +27,7 @@
                     <span class="item-header">Transaction Hash</span>
                     <span class="item-value">
                         {{blockchainTx.txid}}
-                        <img *ngIf="HasBlockhainTx" src="../../../assets/images/Icon-copy.png" (click)="copy('https://www.idchain.elastos.org/tx/' + blockchainTx.txid)" />
+                        <img *ngIf="HasBlockhainTx" src="../../../assets/images/Icon-copy.png" (click)="copy('https://idchain.elastos.org/tx/' + blockchainTx.txid)" />
                     </span>
                 </p>
                 <p>
@@ -35,7 +38,7 @@
                     <span class="item-header">Block Hash</span>
                     <span class="item-value">
                         {{blockchainTx.blockhash}}
-                        <img *ngIf="HasBlockhainTx" src="../../../assets/images/Icon-copy.png" (click)="copy(blockchainTx.blockhash)" />
+                        <img *ngIf="HasBlockhainTx" src="../../../assets/images/Icon-copy.png" (click)="copy('https://idchain.elastos.org/block/' +blockchainTx.blockhash)" />
                     </span>
                 </p>
                 <p>

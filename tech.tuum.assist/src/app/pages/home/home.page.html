@@ -32,7 +32,7 @@
 
         </div>
 
-        <div class="request-item" (click)="gotoRequests('media')">
+        <div class="request-item" (click)="openMediaUpload()">
           <img src="../../../assets/images/icon-media-upload@2x.png" width="40px" />
           <span>Media Uploads</span>
           <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
@@ -50,12 +50,12 @@
       </div>
 
       <div class="tab-services" *ngIf="selectedTab=='services'">
-        <div class="request-item">
+        <div class="request-item" (click)="openMediaUpload()">
           <div class="ellipse">
             <img src="../../../assets/images/icon-Media-Upload@3x.png" width="40px" />
           </div>
           <span>Media Upload</span>
-          <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
+          <img src="../../../assets/images/icon-next.png" class="request-item-caret"  />
 
         </div>
 

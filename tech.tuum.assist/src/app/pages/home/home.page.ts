@@ -109,4 +109,9 @@ export class HomePage {
     await this.appService.presentAlert("This feature is not available")
   }
 
+  async doRefresh(evnt){
+    await this.getRequests()
+    evnt.target.complete();
+  }
+
 }

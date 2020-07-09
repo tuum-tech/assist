@@ -78,4 +78,9 @@ export class RequestsPage {
     console.log("back clicked")
     this.navCtrl.back();
   }
+
+  async doRefresh(evnt){
+    await this.getRequests()
+    evnt.target.complete();
+  }
 }

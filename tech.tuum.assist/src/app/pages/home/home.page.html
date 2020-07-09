@@ -1,4 +1,8 @@
 <ion-content class="ion-no-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <div style="height: 100%">
     <div class="home-content">
       <div class="header">

@@ -8,6 +8,8 @@ import {
     ToastController,
     AlertController
 } from '@ionic/angular';
+import { ModalDialogController } from "../components/modal-dialog/modal-dialog.controller";
+import { ModalDialogEnum } from "../components/modal-dialog/modal-dialog.config";
 
 declare let appManager: AppManagerPlugin.AppManager;
 declare let didManager: DIDPlugin.DIDManager;
@@ -30,7 +32,7 @@ export class AppService {
                 private http: HttpClient, 
                 private clipboard: Clipboard,
                 private toastCtrl: ToastController,
-                private alertController: AlertController,
+                private modalDialogController: ModalDialogController,
                 private localStorage : LocalStorageService) {
 
         myService = this;
@@ -49,20 +51,68 @@ export class AppService {
         }
     }
 
-    async presentAlert(message, action = null) {
+    async presentAlert(message, title = "", action = null) {
         if (action == null) action = ()=>{};
-        const alert = await this.alertController.create({
-          header: 'Alert',
-          message: message,
-          buttons: [ {
-            text: 'OK',
-            handler: action
-          }]
-        });
-    
-        await alert.present();
+        if (title === "") title = "Alert";
+        await this.presentMessage(
+            title,
+            message,
+            ModalDialogEnum.Alert,
+            [
+                {
+                  title: 'Ok',
+                  callback: action,
+                },
+            ]
+        );
       }
 
+    async presentInfo(message, title = "", action = null) {
+        if (action == null) action = ()=>{};
+        if (title === "") title = "Information";
+        await this.presentMessage(
+            title,
+            message,
+            ModalDialogEnum.Info,
+            [
+                {
+                  title: 'Ok',
+                  callback: action,
+                },
+            ]
+        );
+      }
+    
+      async presentSuccess(message, title = "", action = null) {
+        if (action == null) action = ()=>{};
+        if (title === "") title = "Success";
+        await this.presentMessage(
+            title,
+            message,
+            ModalDialogEnum.Success,
+            [
+                {
+                  title: 'Ok',
+                  callback: action,
+                  
+                },
+            ]
+        );
+      }
+
+    async presentMessage(title, message, dialogType: ModalDialogEnum, buttons)
+    {
+        await this.modalDialogController
+        .create({
+          title: title,
+          dialogType: dialogType,
+          description:message ,
+          cancelCallback: () => {
+          },
+          buttons: buttons,
+        })
+        .show();
+    }
     tryDoLogin(): Promise<boolean> {
         var self = this;
 

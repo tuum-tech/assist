@@ -1,0 +1,157 @@
+ion-modal {
+  --ion-background-color: transparent !important;
+  backdrop-filter: blur(6px) ;
+  --background: none !important;
+}
+
+.modal-box{
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  border-radius: 13px;
+ 
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: PoppinsLight;
+    padding: 20px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+}
+
+.contentimg {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  margin-bottom: 10px;
+}
+.text-box {
+  text-align: center;
+  //background-color: red;
+  width: 230px;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: PoppinsBold;
+  font-size: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  display: block;
+  color: #484848;
+}
+
+.title-alert {
+  @extend .title;
+  color: #ff0870;
+}
+.title-points {
+  @extend .title;
+  color: #febd5f;
+}
+
+.title-success {
+  @extend .title;
+  color: #30d6af;
+}
+
+.title-challenge {
+  @extend .title;
+  color: #8677f5;
+}
+
+.title-default {
+  @extend .title;
+  color: #70a7ff;
+}
+
+.text {
+  margin-top: 5px;
+  font-family: PoppinsMedium;
+  font-size: 12px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.47;
+  letter-spacing: normal;
+  text-align: center;
+  color: #484848;
+  display: block;
+}
+
+.input-box {
+  display: block;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: center;
+  input {
+    width: 200px;
+  }
+}
+
+.button-box {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  width: 230px;
+  //background-color: royalblue;
+  // button {
+  //   width: 80px;
+  //   height: 31px;
+  //   margin-right: 5px;
+  //   border-radius: 15px;
+  //   background-color: #f0f6fd;
+  //   font-family: Muli;
+  //   font-size: 13px;
+  //   font-weight: 800;
+  //   font-stretch: normal;
+  //   font-style: normal;
+  //   color: #7e9eff;
+  // }
+
+    .button-primary{
+      width: 112px;
+      height: 31px;
+      background-image: linear-gradient(180deg, #08BDFF, #0058FF);
+      box-shadow: 0 3px 10px 0 rgba(125, 158, 255, 0.25);
+      color: white;
+      border-width:0px;
+      border-style: none;
+      font-weight: bold;
+      font-family: PoppinsSemiBold;
+      font-size:13px;
+      border-radius: 25px;
+  }
+
+  .button-secondary {
+    width: 80px;
+    height: 31px;
+    border-radius: 15px;
+    background-color: #f0f6fd;
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    color: #7e9eff;
+  }
+}

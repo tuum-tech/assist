@@ -108,6 +108,7 @@ export class CreatePage {
       {
           this.appService.presentAlert(
             "You have already used Assist service to publish your profile 10 times",
+            "",
              () =>{
                this.doCancel();
              });
@@ -117,7 +118,8 @@ export class CreatePage {
         this.endTransaction = true;
         if (response.data["duplicate"] == true)
         {
-          this.appService.presentAlert("You have already submitted a duplicate request or it's still processing",
+          this.appService.presentInfo("You have already submitted a duplicate request or it's still processing",
+          "",
           () =>{
             this.startTimer();
           })

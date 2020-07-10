@@ -106,7 +106,7 @@ export class HomePage {
   }
 
   async openMediaUpload(){
-    await this.appService.presentAlert("This feature is not available")
+    await this.appService.presentInfo("This feature is not available")
   }
 
   async doRefresh(evnt){

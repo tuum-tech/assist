@@ -1,0 +1,31 @@
+
+  <div
+    class="container"
+    (click)="backgroundClicked('container',$event)"
+    id="container"
+  >
+    <div class="modal-box" [ngStyle]="{'opacity': (readyToDisplay?'1':'0')}">
+      <img *ngIf="dialogImage" [src]="dialogImage" class="contentimg" />
+      <div class="text-box">
+        <span class="title">{{config.title}}</span>
+        <span class="text">{{config.description}}</span>
+      </div>
+      <!-- <div class="input-box" *ngIf="config.input">
+        <input
+          [placeholder]="config.input.placeholder"
+          [value]="inputValue"
+          (input)="inputValue=$event.target.value"
+        />
+      </div> -->
+      <div class="button-box">
+        <button
+          *ngFor="let item of config.buttons"
+          (click)="buttonClick(config.buttons.indexOf(item))"
+          [class]="buttonClass(config.buttons.indexOf(item))"
+        >
+          {{item.title}}
+        </button>
+      </div>
+    </div>
+  </div>
+

@@ -3,17 +3,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { ModalDialogComponent } from "./modal-dialog/modal-dialog";
+import { ModalDialogController } from "./modal-dialog/modal-dialog.controller";
 
 
 @NgModule({
-    declarations: [RequestItemComponent ],
+    declarations: [
+      RequestItemComponent,
+      ModalDialogComponent
+     ],
     imports: [
       CommonModule,
       FormsModule,
       IonicModule,
     ],
-    exports: [RequestItemComponent],
-    providers: [ ],
-    entryComponents: [],
+    exports: [
+      RequestItemComponent,
+      ModalDialogComponent
+    ],
+    providers: [
+      ModalDialogController
+     ],
+    entryComponents: [
+      ModalDialogComponent
+    ],
   })
   export class ComponentsModule { }

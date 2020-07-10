@@ -39,6 +39,13 @@ ion-title {
   }
 }
 
+.sc-ion-modal-md-h {
+  --background: none;
+}
+.sc-ion-modal-ios-h {
+  --background: none;
+}
+
 @font-face {
   font-family: PoppinsLight;
   src: url('./assets/fonts/poppins/Poppins-Light.ttf'); 

@@ -1,11 +1,11 @@
 {
-  "id": "tech.tuum.assist",
+  "id": "tech.tuum.test.assist",
   "version": "0.0.1",
   "version_code": 1,
   "name": "Assist",
   "short_name": "Assist",
   "short_description": "Assist dApp for elastOS",
-  "description": "TBD",
+  "description": "Publish your DID to the blockchain for free",
   "start_url": "index.html",
   "type": "app",
   "start_visible": "hide",

@@ -1,8 +1,8 @@
 {
-  "name": "template-app",
+  "name": "assist",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Tuum Tech",
+  "homepage": "https://tuum.tech",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -62,5 +62,5 @@
     "tslint": "~5.15.0",
     "typescript": "3.4.1"
   },
-  "description": "An Ionic project"
+  "description": "Publish your DID to the blockchain for free"
 }

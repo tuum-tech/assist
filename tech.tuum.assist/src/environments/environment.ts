@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://192.168.1.117:8000",
+  apiUrl: "http://192.168.1.170:8000",
   apiSecretKey: "assist-restapi-secret-key"
 };
 

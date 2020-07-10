@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: "http://192.168.1.170:8000",
+  apiUrl: "https://wogbjv3ci3.execute-api.us-east-1.amazonaws.com/prod",
   apiSecretKey: "assist-restapi-secret-key"
 };

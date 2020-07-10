@@ -3,18 +3,14 @@ import { Native } from './Native';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStorageService } from "./localstorage.service";
 import { Clipboard } from '@ionic-native/clipboard/ngx';
-import {
-    LoadingController,
-    ToastController,
-    AlertController
-} from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { ModalDialogController } from "../components/modal-dialog/modal-dialog.controller";
 import { ModalDialogEnum } from "../components/modal-dialog/modal-dialog.config";
 
 declare let appManager: AppManagerPlugin.AppManager;
-declare let didManager: DIDPlugin.DIDManager;
-declare let didSessionManager: DIDSessionManagerPlugin.DIDSessionManager;
-let appManagerObj = null;
+declare let titleBarManager: TitleBarPlugin.TitleBarManager;
+
+
 let myService = null;
 
 
@@ -28,12 +24,11 @@ export class AppService {
     private isReceiveIntentReady = false;
 
 
-    constructor(public native: Native, 
-                private http: HttpClient, 
-                private clipboard: Clipboard,
-                private toastCtrl: ToastController,
-                private modalDialogController: ModalDialogController,
-                private localStorage : LocalStorageService) {
+    constructor(public native: Native,
+        private clipboard: Clipboard,
+        private toastCtrl: ToastController,
+        private modalDialogController: ModalDialogController,
+        private localStorage: LocalStorageService) {
 
         myService = this;
     }
@@ -52,7 +47,7 @@ export class AppService {
     }
 
     async presentAlert(message, title = "", action = null) {
-        if (action == null) action = ()=>{};
+        if (action == null) action = () => { };
         if (title === "") title = "Alert";
         await this.presentMessage(
             title,
@@ -60,15 +55,15 @@ export class AppService {
             ModalDialogEnum.Alert,
             [
                 {
-                  title: 'Ok',
-                  callback: action,
+                    title: 'Ok',
+                    callback: action,
                 },
             ]
         );
-      }
+    }
 
     async presentInfo(message, title = "", action = null) {
-        if (action == null) action = ()=>{};
+        if (action == null) action = () => { };
         if (title === "") title = "Information";
         await this.presentMessage(
             title,
@@ -76,15 +71,15 @@ export class AppService {
             ModalDialogEnum.Info,
             [
                 {
-                  title: 'Ok',
-                  callback: action,
+                    title: 'Ok',
+                    callback: action,
                 },
             ]
         );
-      }
-    
-      async presentSuccess(message, title = "", action = null) {
-        if (action == null) action = ()=>{};
+    }
+
+    async presentSuccess(message, title = "", action = null) {
+        if (action == null) action = () => { };
         if (title === "") title = "Success";
         await this.presentMessage(
             title,
@@ -92,60 +87,58 @@ export class AppService {
             ModalDialogEnum.Success,
             [
                 {
-                  title: 'Ok',
-                  callback: action,
-                  
+                    title: 'Ok',
+                    callback: action,
+
                 },
             ]
         );
-      }
+    }
 
-    async presentMessage(title, message, dialogType: ModalDialogEnum, buttons)
-    {
+    async presentMessage(title, message, dialogType: ModalDialogEnum, buttons) {
         await this.modalDialogController
-        .create({
-          title: title,
-          dialogType: dialogType,
-          description:message ,
-          cancelCallback: () => {
-          },
-          buttons: buttons,
-        })
-        .show();
+            .create({
+                title: title,
+                dialogType: dialogType,
+                description: message,
+                cancelCallback: () => {
+                },
+                buttons: buttons,
+            })
+            .show();
     }
     tryDoLogin(): Promise<boolean> {
         var self = this;
 
         return new Promise(async (resolve, reject) => {
-           
-            let profile =  await this.localStorage.getProfile();
-            if (profile)
-            {
+
+            let profile = await this.localStorage.getProfile();
+            if (profile) {
                 AppService.signedIdentity = profile;
                 resolve(true);
                 return;
             }
-            
+
             appManager.sendIntent("credaccess", {
-                claims: 
-                    { 
-                        name: false
-                    }
-                },
+                claims:
+                {
+                    name: false
+                }
+            },
                 {},
                 (response) => {
                     var nameSubject = self.getSubject(response.result.presentation, "name");
                     console.log(response)
                     AppService.signedIdentity = {
-                                didString: response.result.did,
-                                didStoreId: response.result.did,
-                                name:  nameSubject || ""
-                            };
+                        didString: response.result.did,
+                        didStoreId: response.result.did,
+                        name: nameSubject || ""
+                    };
                     this.localStorage.setProfile(AppService.signedIdentity)
                     resolve(true);
-                    
+
                 },
-                function(err){
+                function (err) {
                     console.log(err);
                     resolve(false);
                 })
@@ -180,7 +173,7 @@ export class AppService {
         myService.native.go('/create');
     }
 
-   
+
 
     sendIntentResponse(action, result, intentId) {
         appManager.sendIntentResponse(action, result, intentId, () => {
@@ -193,15 +186,40 @@ export class AppService {
 
     public copyClipboard(text) {
         return this.clipboard.copy(text);
-      }
-    
+    }
+
     public toast(message: string = 'Operation completed', duration: number = 2000): void {
         this.toastCtrl
-          .create({
-            "message": message,
-            "duration": 2000,
-            "position": 'middle',
-          })
-          .then((toast) => toast.present());
-      }
+            .create({
+                "message": message,
+                "duration": 2000,
+                "position": 'middle',
+            })
+            .then((toast) => toast.present());
+    }
+
+
+    setTitleBar() {
+        titleBarManager.setTitle('Assist');
+        titleBarManager.setIcon(TitleBarPlugin.TitleBarIconSlot.INNER_LEFT, null);
+        titleBarManager.setIcon(TitleBarPlugin.TitleBarIconSlot.INNER_RIGHT, null);
+        titleBarManager.setIcon(TitleBarPlugin.TitleBarIconSlot.OUTER_RIGHT, null);
+        titleBarManager.setBackgroundColor("#005BFF");
+        titleBarManager.setForegroundMode(TitleBarPlugin.TitleBarForegroundMode.LIGHT);
+
+        
+    }
+
+    setBack(action) {
+        titleBarManager.setIcon(TitleBarPlugin.TitleBarIconSlot.INNER_LEFT, {
+            key: 'back',
+            iconPath: TitleBarPlugin.BuiltInIcon.BACK,
+        });
+
+        titleBarManager.addOnItemClickedListener((menuIcon) => {
+            if (menuIcon.key === 'back') {
+              action();
+            }
+        });
+    }
 }

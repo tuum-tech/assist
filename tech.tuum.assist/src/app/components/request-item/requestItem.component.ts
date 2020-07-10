@@ -20,11 +20,7 @@ export class RequestItemComponent implements OnInit {
 
   public get timeMoment() : string {
     if (!this.request) return "";
-    
-    if (this.request.modified){
-       return moment(this.request.modified).fromNow()
-    }
-    return moment(this.request.created).fromNow()
+    return moment.utc(this.request.created).fromNow()
 
  }
 

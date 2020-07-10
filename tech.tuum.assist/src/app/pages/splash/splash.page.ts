@@ -39,9 +39,7 @@ export class SplashPage implements OnInit{
   
   
       // Update system status bar every time we re-enter this screen.
-      titleBarManager.setTitle("Assist");
-      titleBarManager.setBackgroundColor("#005BFF");
-      titleBarManager.setForegroundMode(TitleBarPlugin.TitleBarForegroundMode.LIGHT);
+      this.appService.setTitleBar();
     }
 
 

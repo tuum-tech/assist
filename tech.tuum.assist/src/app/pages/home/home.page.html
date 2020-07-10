@@ -59,14 +59,14 @@
             <img src="../../../assets/images/icon-Media-Upload@3x.png" width="40px" />
           </div>
           <span>Media Upload</span>
-          <img src="../../../assets/images/icon-next.png" class="request-item-caret"  />
+          <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
 
         </div>
 
 
       </div>
     </div>
-    
+
   </div>
   <div class="profile-content" *ngIf="isShowProfile">
     <div class="profile-background">
@@ -76,14 +76,20 @@
       <img src="../../../assets/images/icon-Close.png" (click)="closeProfile()" />
     </div>
     <div class="profile-details">
-        <div class="profile-details-items">
-          <img class="profile-details-img" src="../../../assets/images/icon-Profile.png" />
-          <span><b>DID</b></span>
-          <span>
-            {{did}}
-            <img src="../../../assets/images/Icon-copy.png" (click)="copy(did)" />
-          </span>
-        </div>
+      <div class="profile-details-items">
+        <img class="profile-details-img" src="../../../assets/images/icon-Profile.png" />
+        <span *ngIf="name">
+          <b>Name</b>
+        </span>
+        <span *ngIf="name">
+          {{name}}
+        </span>
+        <span><b>DID</b></span>
+        <span>
+          {{did}}
+          <img src="../../../assets/images/Icon-copy.png" (click)="copy(did)" />
+        </span>
+      </div>
     </div>
   </div>
 </ion-content>

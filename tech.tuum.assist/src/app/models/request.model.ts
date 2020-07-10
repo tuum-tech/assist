@@ -7,8 +7,8 @@ export class RequestDTO{
    public didRequest: string
    public status: string
    public blockchainTx: any
-   public created: string
-   public modified: string
+   public created: number
+   public modified: number
 
    
   

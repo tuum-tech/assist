@@ -33,10 +33,10 @@ export class DetailsPage {
 
 
     // Update system status bar every time we re-enter this screen.
-    titleBarManager.setTitle("Assist");
-    titleBarManager.setBackgroundColor("#005BFF");
-    titleBarManager.setForegroundMode(TitleBarPlugin.TitleBarForegroundMode.LIGHT);
-
+    this.appService.setTitleBar();
+    // this.appService.setBack(()=>{
+    //   this.goBack()
+    // })
     
 
     
@@ -67,17 +67,13 @@ export class DetailsPage {
 
   public get timeMoment() : string {
     if (!this.request) return "";
-    
-    if (this.request.modified){
-       return moment(this.request.modified).format('MMMM DD YYYY');
-    }
-    return moment(this.request.created).format('MMMM DD YYYY');
+    return moment.utc(this.request.created).format('MMMM DD YYYY');
 
  }
 
  public getMoment(value: number) : string {
    if (!value) return "No information"
-  return moment.unix(value).format();
+  return moment.unix(value).fromNow();
  }
 
  public get statusClass(): string{

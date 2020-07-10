@@ -35,7 +35,7 @@
       "DIDPlugin"
     ],
     "urls": [
-      "https://wogbjv3ci3.execute-api.us-east-1.amazonaws.com/prod"
+      "https://wogbjv3ci3.execute-api.us-east-1.amazonaws.com/prod/*"
     ],
       "intent_filters": [
           {

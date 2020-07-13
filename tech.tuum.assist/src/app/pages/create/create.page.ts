@@ -149,13 +149,34 @@ export class CreatePage {
   returnTransaction()
   {
     this.timer = -1;
-    this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, { txid: this.requestId }, AppService.intentConfig.transfer.intentId);
-    AppService.intentConfig = {};
+    
+    appManager.sendIntentResponse(
+      AppService.intentConfig.transfer.action,
+      { txid: this.requestId },
+      AppService.intentConfig.transfer.intentId,
+      success =>{
+        appManager.close()
+      },
+      error =>{
+        console.error(error)
+      }
+    )
     this.refresh();
   }
 
   doCancel(){
-    this.appService.sendIntentResponse(AppService.intentConfig.transfer.action, {  }, AppService.intentConfig.transfer.intentId);
+    appManager.sendIntentResponse(
+      AppService.intentConfig.transfer.action,
+      {},
+      AppService.intentConfig.transfer.intentId,
+      success =>{
+        appManager.close()
+      },
+      error =>{
+        console.error(error)
+      }
+    )
+    this.refresh();
   }
 
   copy(value){

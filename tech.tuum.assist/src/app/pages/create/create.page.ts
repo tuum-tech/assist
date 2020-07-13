@@ -105,7 +105,7 @@ export class CreatePage {
       if (response.data["confirmation_id"] == "")
       {
           this.appService.presentAlert(
-            "You have already used Assist service to publish your profile 10 times",
+            "You have reached your daily limit for DID publish service. Please try again tomorrow",
             "",
              () =>{
                this.doCancel();

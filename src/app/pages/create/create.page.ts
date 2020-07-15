@@ -116,7 +116,7 @@ export class CreatePage {
         this.endTransaction = true;
         if (response.data["duplicate"] == true)
         {
-          this.appService.presentInfo("You have already submitted a duplicate request or it's still processing",
+          this.appService.presentAlert("Your last request is still processing. Please try again later",
           "",
           () =>{
             this.startTimer();

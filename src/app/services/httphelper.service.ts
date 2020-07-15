@@ -16,13 +16,11 @@ export class HttpHelper{
     private sendPost<T>(url, data) : Promise<T> {
         return new Promise((resolve, reject) =>{
             console.log("url", url)
-            console.log("apiKey", environment.apiSecretKey)
 
             let headers = new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': environment.apiSecretKey
             })
-            console.log(headers)
             this.http.post(url, data, { headers: headers}).toPromise().then(response =>{
                 resolve(response as T)
             }).catch(err=>{

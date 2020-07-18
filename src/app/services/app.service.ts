@@ -107,28 +107,34 @@ export class AppService {
             })
             .show();
     }
-    tryDoLogin(): Promise<boolean> {
+    tryDoLogin(force: boolean = false): Promise<boolean> {
         var self = this;
 
         return new Promise(async (resolve, reject) => {
 
-            let profile = await this.localStorage.getProfile();
-            if (profile) {
-                AppService.signedIdentity = profile;
-                resolve(true);
-                return;
+            if (!force)
+            {
+                let profile = await this.localStorage.getProfile();
+                if (profile) {
+                    AppService.signedIdentity = profile;
+                    resolve(true);
+                    return;
+                }
             }
+            
 
             appManager.sendIntent("credaccess", {
                 claims:
                 {
                     name: false
                 }
-            },
+              },
                 {},
                 (response) => {
-                    var nameSubject = self.getSubject(response.result.presentation, "name");
                     console.log(response)
+
+                    var nameSubject = self.getSubject(response.result.presentation, "name");
+                    
                     AppService.signedIdentity = {
                         didString: response.result.did,
                         didStoreId: response.result.did,
@@ -170,6 +176,7 @@ export class AppService {
             didrequest: intent.params.didrequest,
             chainId: 'IDChain',
         };
+        appManager.setVisible("show");
         myService.native.go('/create');
     }
 
@@ -196,6 +203,15 @@ export class AppService {
                 "position": 'middle',
             })
             .then((toast) => toast.present());
+    }
+
+    isObjImage(obj): boolean{
+        if (obj !== Object(obj)) return false
+        return ('content-type' in obj && obj['content-type'].startsWith("image")) 
+    }
+
+    getBase64Image(obj): string{
+        return `data:${obj["content-type"]};${obj["type"]},${obj["data"]}`
     }
 
 

@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { HttpHelper } from 'src/app/services/httphelper.service';
 import { RequestDTO } from 'src/app/models/request.model';
 import { PostDTO } from 'src/app/models/httpresponse.model';
+import { StatisticsService } from 'src/app/services/statistics.service';
+import { ServiceCountDTO } from 'src/app/models/servicecount.model';
 
 
 declare let appManager: AppManagerPlugin.AppManager;
@@ -28,8 +30,11 @@ export class CreatePage {
   endTransaction: boolean = false;
   timer: number;
   requestId: string;
+  serviceCount: ServiceCountDTO;
+
   constructor(public navCtrl: NavController, 
               private appService: AppService, 
+              private statService: StatisticsService,
               private native: Native, 
               public router: Router,
               private httpService: HttpHelper) {
@@ -75,6 +80,12 @@ export class CreatePage {
       this.profileValues = values;
       this.endTransaction = false;
       this.hasTransaction = true;
+      
+      this.statService.getUserStatisticsFromService(StatisticsService.ID_PUBLISH, this.did).then(response=>{
+          this.serviceCount = response;
+          console.log("response", response)
+      })
+
     }
     else {
       this.hasTransaction = false;
@@ -93,7 +104,19 @@ export class CreatePage {
     }
   }
 
+  isObjImage(obj)
+  {
+    return this.appService.isObjImage(obj);
+  }
+
+  getBase64Image(obj)
+  {
+    return this.appService.getBase64Image(obj);
+  }
+
   doPublish() {
+    if (!this.serviceCount || this.serviceCount.count >=5) return;
+
     let action = "/v1/didtx/create"
     let data = {
       "didRequest" : AppService.intentConfig.transfer.didrequest,
@@ -177,6 +200,15 @@ export class CreatePage {
       }
     )
     this.refresh();
+  }
+
+  getButtonPublishClass()
+  {
+    if (this.serviceCount && this.serviceCount.count < 5)
+    {
+      return "button-publish"
+    }
+    return "button-publish-disabled"
   }
 
   copy(value){

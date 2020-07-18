@@ -127,4 +127,14 @@ export class DetailsPage {
     return did === this.request.did
   }
  
+
+  isObjImage(obj)
+  {
+    return this.appService.isObjImage(obj);
+  }
+
+  getBase64Image(obj)
+  {
+    return this.appService.getBase64Image(obj);
+  }
 }

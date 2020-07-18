@@ -1,21 +1,31 @@
-
-ion-content{
-  --background: #F2F5FA;
+ion-content {
+  --background: #f2f5fa;
+  --ion-grid-width: 100% !important;
   height: 100%;
 
-  .header{
+  .header {
     margin: 15px 15px 0px 15px;
   }
 
- 
+  ion-grid {
+    padding: 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
 
-  ion-segment{
-        
-  
-    background-color: #F2F5FA;
-    --color: #000000DE;
-    --color-checked: #000000DE;
-    --indicator-color-checked: #000000DE;
+  ion-row {
+    padding: 0px !important;
+  }
+
+  ion-col {
+    padding: 0px !important;
+  }
+
+  ion-segment {
+    background-color: #f2f5fa;
+    --color: #000000de;
+    --color-checked: #000000de;
+    --indicator-color-checked: #000000de;
     font-family: PoppinsBold;
     font-size: 20px;
     font-weight: bold;
@@ -26,93 +36,89 @@ ion-content{
     width: 50%;
 
     margin: 20px 15px;
-    
   }
 
-  .request-item{
-    
-    background-color: #FFFFFF;
+  .request-item {
+    background-color: #ffffff;
     border-radius: 15px;
     padding: 17px;
-    margin: 10px 15px;
-    
+    margin: 10px;
   }
-  
-  .request-item span{
+
+  .request-item span {
     position: absolute;
     display: inline-block;
     font-family: PoppinsMedium;
     font-size: 18px;
     margin-left: 15px;
-    margin-top: 6px;
   }
-  .request-item-caret{
+
+  .request-item-details {
+    display: inline-block;
+    color: #000000de;
+    opacity: 0.38;
+    font-family: Poppins;
+    font-size: 14px;
+    margin-left: 15px;
+  }
+  .request-item-caret {
     float: right;
     margin-top: 10px;
   }
 
-
-  
-
   .ellipse {
     border-radius: 50%;
     overflow: hidden;
-    background: linear-gradient(180deg, #08BDFF,#0058FF);
+    background: linear-gradient(180deg, #08bdff, #0058ff);
     position: relative;
     width: 40px;
     height: 40px;
     float: left;
-
   }
-  
-  .ellipse img{
+
+  .ellipse img {
     position: absolute;
     top: 50%;
     left: 50%;
     -ms-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-    
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
 
-  
-
   .tab-requests {
-    
     display: flex;
     flex-flow: column;
     height: 100%;
   }
 
   .tab-services {
-    
     display: flex;
     flex-flow: column;
     height: 100%;
   }
 
-  .recent-requests{
-    background-color:#FFFFFF;
-      border-radius: 13px 13px 0 0;
-      position: relative;
-      
-      bottom: 0;
-      top: 12px;
-      width: 100%;
-      display: flex;
-      flex-flow: column;
-      height: 100% auto;
-      min-height: 400px;
-  
-      padding: 10px 15px;
+  .recent-requests {
+    background-color: #ffffff;
+    border-radius: 13px;
+    position: relative;
+
+    bottom: 0;
+    top: 12px;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    height: 100% auto;
+
+    margin-bottom: 15px;
+    padding: 10px 15px;
   }
 
-  .recent-requests h2{
+  .recent-requests h2 {
     font-family: PoppinsSemiBold;
     font-size: 24px;
   }
 
-  .profile-content{
+  .profile-content {
     position: absolute;
     top: 0;
     left: 0;
@@ -120,7 +126,7 @@ ion-content{
     right: 0;
   }
 
-  .profile-background{
+  .profile-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -128,7 +134,6 @@ ion-content{
     right: 0;
     background-color: #000000;
     opacity: 0.59;
-    
   }
 
   .profile-header {
@@ -136,18 +141,17 @@ ion-content{
     display: flex;
     align-items: flex-end;
     width: 100%;
-    height: 50%;
+    height: 30%;
     justify-content: center;
     z-index: 99999;
   }
 
-
-  .profile-details{
-    background-color:#FFFFFF;
+  .profile-details {
+    background-color: #ffffff;
     opacity: 1 !important;
     border-radius: 13px 13px 0 0;
     position: relative;
-    
+
     bottom: 0;
     top: 12px;
     width: 100%;
@@ -156,39 +160,112 @@ ion-content{
     align-items: flex-start;
     text-align: center;
     height: 100% auto;
-    min-height: 100%;
+    min-height: 1200px;
     font-family: PoppinsLight;
+    font-size: 15px;
     padding: 10px 15px;
   }
-  .profile-details-items{
+
+  .profile-details-items {
     width: 100%;
-    height: 100%;
     display: block;
-    padding: 40px 80px;
+    padding: 40px 20px;
   }
-  .profile-details-img{
+  .profile-details-img {
     position: relative;
     width: 100px;
     height: 100px;
     margin-bottom: 15px;
   }
-  .profile-details-items span{
-    display: block;
-    
+
+  .profile-details-items div {
+    justify-content: left;
+    align-items: flex-start;
+    text-align: left;
   }
 
-  .header input{
+  .profile-details-span-header {
+    display: block;
+    font-family: PoppinsMedium;
+  }
+  .profile-details-span-text {
+    display: block;
+    margin-bottom: 10px;
+    font-family: PoppinsLight;
+  }
+
+  .profile-details-span-text span {
+    width: 200px;
+  }
+
+  .profile-details-span-text img {
+    float: right;
+  }
+
+  .profile-details-section {
+    background-color: #ffffff;
+    border-radius: 14px 14px;
+    box-shadow: 0px 0px 16px 0px #0000000b;
+    width: 100%;
+    height: 100% auto;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .header input {
     display: inline-block;
     border-width: 0px;
     margin-left: 10px;
     height: 24px;
     width: 170px;
-    border-color: transparent;      
+    border-color: transparent;
     background-color: transparent;
   }
 
-  .header input, input:focus{
+  .statistics-header {
+    font-family: PoppinsSemiBold;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .statistics-header span {
+    margin-top: 15px;
+    position: absolute;
+    display: inline-block;
+  }
+  .statistics-header img {
+    float: right;
+  }
+
+  .header input,
+  input:focus {
     outline: none;
-}
- 
+  }
+
+  .page-button {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    background-color: #E6EFFF;
+    color: #005BFF;
+    border-width: 0px;
+    border-style: none;
+    font-weight: bold;
+    font-family: PoppinsSemiBold;
+    font-size: 14px;
+    height: 50px;
+    width: 260px;
+    border-radius: 25px;
+    padding: 12px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  .page-button-text {
+    display: block;
+    margin-left: 50px;
+    margin-top: 3px;
+    width: 100%;
+  }
 }

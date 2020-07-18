@@ -7,17 +7,24 @@
         <div class="details">
             <div class="before-publish" *ngIf="endTransaction == false">
                 <h2>Publish your DID credentials to the blockchain.</h2>
+                <br />
                 <h3>Please review before publish</h3>
-    
+                <br />
                 <p>
                     <span class="item-header">DID</span>
-                    <span class="item-value">{{did}}</span>
+                    <span class="item-value">
+                        {{did}}
+                        <img src="../../../assets/images/Icon-copy.png" (click)="copy(did)" />
+                    </span>
                 </p>
-    
-                <p *ngFor="let item of profileValues">
-                    <span class="item-header">{{item.header}}</span>
-                    <span class="item-value">{{item.value}}</span>
-                </p>
+
+                <div class="details-item" *ngFor="let item of profileValues">
+                    <span class="details-item-header">{{item.header}}</span>
+                    <span *ngIf="!isObjImage(item.value)" class="details-item-value">{{item.value}}</span>
+                    <img *ngIf="isObjImage(item.value)" [src]="getBase64Image(item.value)" alt="Item image" />
+                </div>
+
+
     
                 <div class="details-memo">
                     <span>Message</span>
@@ -26,16 +33,18 @@
     
                 <br />
                 
-                <div class="buttons">
+                <div class="buttons" >
                     <div class="button-cancel" (click)="doCancel()">
                         Cancel
                         <ion-ripple-effect></ion-ripple-effect>
                     </div>
-                    <div class="button-publish" (click)="doPublish()">
-                        Publish
+                    <div *ngIf="serviceCount" [class]="getButtonPublishClass()" (click)="doPublish()">
+                        Publish ({{serviceCount.count}}/5)
                         <ion-ripple-effect></ion-ripple-effect>
                     </div>
                 </div>
+
+                
             </div>
             <div class="after-publish" *ngIf="endTransaction == true">
                 <h2>Your ID was published successfully.</h2>
@@ -58,6 +67,8 @@
                         <ion-ripple-effect></ion-ripple-effect>
                     </div>
                 </div>
+
+                
             </div>
             
 

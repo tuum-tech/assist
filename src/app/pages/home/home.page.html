@@ -1,9 +1,9 @@
 <ion-content class="ion-no-padding">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content>
-    </ion-refresher-content>
-  </ion-refresher>
   <div style="height: 100%">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+    </ion-refresher>
     <div class="home-content">
       <div class="header">
         <img src="../../../assets/images/Navbar-logo@2x.png" height="36px" />
@@ -28,19 +28,21 @@
       <div class="tab-requests" *ngIf="selectedTab=='requests'">
 
         <div class="request-item" (click)="gotoRequests('identification')">
-          <div class="ellipse">
-            <img src="../../../assets/images/DID Icon@2x.png" width="20px" />
-          </div>
+          <img src="../../../assets/images/icon-did.svg" width="40px" />
           <span>ID Publish</span>
           <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
-
+          <div class="request-item-details" *ngIf="idPublishStatistics" >
+                {{idPublishStatistics.count}} of 5
+          </div>
         </div>
 
         <div class="request-item" (click)="openMediaUpload()">
-          <img src="../../../assets/images/icon-media-upload@2x.png" width="40px" />
+          <img src="../../../assets/images/icon-media-upload.svg" width="40px" />
           <span>Media Uploads</span>
           <img src="../../../assets/images/icon-next.png" class="request-item-caret" />
-
+          <div class="request-item-details" *ngIf="mediaUploadStatistics" >
+                {{mediaUploadStatistics.count}} of 5
+          </div>
         </div>
 
         <div class="recent-requests" *ngIf="requests">
@@ -49,6 +51,67 @@
           <request-item *ngFor="let request of requests" [request]="request" (click)="openRequest(request.id)">
 
           </request-item>
+        </div>
+
+        <div class="recent-requests" >
+          <h2>Statistics</h2>
+
+          <div class="statistics-header">
+            <span>ID Publish Service</span>
+            <img src="../../../assets/images/icon-did.svg" width="40px" />
+          </div>
+
+          <ion-grid>
+            <ion-row *ngIf="statistics">
+              <ion-col>
+                <div  class="profile-details-section" style="margin-right: 10px; margin-bottom: 5px;">
+                  <span class="profile-details-span-header">
+                    Published Today
+                  </span>
+                  <span class="profile-details-span-text">
+                    {{statistics.did_publish.today}}
+                  </span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="profile-details-section" style="margin-left: 10px; margin-bottom: 5px;">
+                  <span  class="profile-details-span-header">
+                    Total Published
+                  </span>
+                  <span class="profile-details-span-text">
+                    {{statistics.did_publish.total}}         
+                  </span>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="mediaUploadStatistics">
+              <ion-col>
+                <div class="profile-details-section"  style="margin-right: 10px; margin-top: 5px;">
+                  <span class="profile-details-span-header">
+                   DID Users
+                  </span>
+                  <span  class="profile-details-span-text">
+                    {{statistics.did_publish.users}}
+                  </span>
+                </div>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+        <div class="recent-requests" >
+          <h2>Tutorial</h2>
+
+          <div style="width: 100%;">
+            <p>1. Go to Identity capsule</p>
+            <p>2. Publish your DID</p>
+            <p>3. Select Assist</p>
+            <p>4. Write any custom note regarding the publish (this note won't be saved on the blockchain, is private and can only be viewable by you)</p>
+            <p>5. Publish</p>
+          </div>
+         
         </div>
 
       </div>
@@ -66,7 +129,6 @@
 
       </div>
     </div>
-
   </div>
   <div class="profile-content" *ngIf="isShowProfile">
     <div class="profile-background">
@@ -77,18 +139,76 @@
     </div>
     <div class="profile-details">
       <div class="profile-details-items">
-        <img class="profile-details-img" src="../../../assets/images/icon-Profile.png" />
-        <span *ngIf="name">
-          <b>Name</b>
-        </span>
-        <span *ngIf="name">
-          {{name}}
-        </span>
-        <span><b>DID</b></span>
-        <span>
-          {{did}}
-          <img src="../../../assets/images/Icon-copy.png" (click)="copy(did)" />
-        </span>
+        <img class="profile-details-img" src="../../../assets/images/icon-Profile.png" /> 
+        <div>
+          <span class="profile-details-span-header">
+              DID
+          </span>
+          <div class="profile-details-span-text">
+            <div style="width: 90% !important; display: inline-block;">
+              {{did}} 
+            </div>
+            <img src="../../../assets/images/Icon-copy.png" (click)="copy(did)" />
+          </div>
+          <span *ngIf="name" class="profile-details-span-header">
+            Name
+          </span>
+          <span *ngIf="name" class="profile-details-span-text">
+            {{name}}
+          </span>
+        </div>  
+        <div style="margin-top: 10px;">
+          <ion-grid>
+            <ion-row *ngIf="idPublishStatistics">
+              <ion-col>
+                <div  class="profile-details-section" style="margin-right: 10px; margin-bottom: 10px;">
+                  <span class="profile-details-span-header">
+                    Published Today
+                  </span>
+                  <span *ngIf="name" class="profile-details-span-text">
+                    {{idPublishStatistics.count}}
+                  </span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="profile-details-section" style="margin-left: 10px; margin-bottom: 10px;">
+                  <span  class="profile-details-span-header">
+                    Total Published
+                  </span>
+                  <span class="profile-details-span-text">
+                    {{idPublishStatistics.total_count}}                  
+                  </span>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="mediaUploadStatistics">
+              <ion-col>
+                <div class="profile-details-section"  style="margin-right: 10px; margin-top: 10px;">
+                  <span class="profile-details-span-header">
+                    Uploads Today
+                  </span>
+                  <span  class="profile-details-span-text">
+                    {{mediaUploadStatistics.count}}
+                  </span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="profile-details-section" style="margin-left: 10px; margin-top: 10px;">
+                  <span  class="profile-details-span-header">
+                    Total Uploads
+                  </span>
+                  <span  class="profile-details-span-text">
+                    {{mediaUploadStatistics.total_count}}  
+                  </span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div class="page-button" (click)="doLogin()">
+          <span class="page-button-text">&nbsp;Refresh Credentials</span>
+          <ion-ripple-effect></ion-ripple-effect>
+      </div>
       </div>
     </div>
   </div>

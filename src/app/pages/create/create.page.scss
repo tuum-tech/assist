@@ -15,10 +15,11 @@ ion-content{
         bottom: 0;
         top: 12px;
         width: 100%;
+        
         display: flex;
         flex-flow: column;
-        height: 100%;
-    
+        height: 100% auto;
+        min-height: 100%;
         padding: 10px 15px;
       }
 
@@ -39,6 +40,33 @@ ion-content{
       }
 
       .item-value{
+        position: relative;
+        display: block;
+        font-family: PoppinsLight;
+        font-size: 14px;  
+      }
+
+      .item-value img {
+        float: right;
+      }
+
+      .details-item{
+        position: relative;
+        display: block;
+        background-color: #EAF0F8;
+        border-radius: 8px;
+        padding: 8px;
+        width: 100% ;
+        margin-top: 10px;
+      }
+      .details-item-header{
+        display: block;
+        font-family: PoppinsMedium;
+        font-size: 14px;  
+      }
+
+      .details-item-value{
+        width: 100%;
         position: relative;
         display: block;
         font-family: PoppinsLight;
@@ -73,10 +101,10 @@ ion-content{
          font-size: 14px;  
       }
       .buttons{
-          display: inline;
-          align-items: center;  
-          align-content: center;
-          align-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: center;
       }
       
       .button-cancel{
@@ -92,7 +120,7 @@ ion-content{
         font-family: PoppinsSemiBold;
         font-size:13px;
         padding: 12px;
-        margin: 0 auto;
+        margin-right: 5px;
         width: 120px;
         text-align: center;
     }
@@ -109,11 +137,27 @@ ion-content{
         font-family: PoppinsSemiBold;
         font-size:13px;
         padding: 12px;
-        margin: 0 auto;
+        margin-left: 5px;
         width: 120px;
         text-align: center;
-        margin-left: 10px;
     }
+
+    .button-publish-disabled{
+      display:inline-block;
+      position:relative;
+      background-color: #EAEAEA;
+      border-radius: 25px;
+      color: #797E86;
+      border-width:0px;
+      border-style: none;
+      font-weight: bold;
+      font-family: PoppinsSemiBold;
+      font-size:13px;
+      padding: 12px;
+      margin-left: 5px;
+      width: 120px;
+      text-align: center;
+  }
    
   }
   

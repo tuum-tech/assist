@@ -32,6 +32,15 @@
                 </div>
     
                 <br />
+
+                <div class="timer" *ngIf="serviceCount && serviceCount.count >= 5" >
+                    <div class="timer-item">
+                        Resets in {{resetTimer}}
+                    </div>
+                       
+                </div>
+
+                <br /> 
                 
                 <div class="buttons" >
                     <div class="button-cancel" (click)="doCancel()">

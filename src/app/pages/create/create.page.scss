@@ -100,12 +100,36 @@ ion-content{
          font-family: PoppinsLight;
          font-size: 14px;  
       }
+
+      .timer{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: center;
+        width: 100%;
+        font-weight: bold;
+        font-family: PoppinsSemiBold;
+        font-size:13px;
+      }
+
+      .timer-item{
+        display: block;
+        background-color: #F4F4F4;
+        border-radius: 8px;
+        color: #000000;
+        border-width:0px;
+        height: 33px;
+        width: 162px;
+        padding-top: 7px;
+      }
+
       .buttons{
         display: flex;
         justify-content: center;
         align-items: flex-start;
         text-align: center;
       }
+
       
       .button-cancel{
         display:inline-block;

@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 import { HttpHelper } from 'src/app/services/httphelper.service';
 import { RequestDTO } from 'src/app/models/request.model';
 import { PostDTO } from 'src/app/models/httpresponse.model';
-
+import { StatisticsService } from 'src/app/services/statistics.service';
+import { ServiceCountDTO } from 'src/app/models/servicecount.model';
+import * as moment from 'moment'
 
 declare let appManager: AppManagerPlugin.AppManager;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
@@ -28,8 +30,11 @@ export class CreatePage {
   endTransaction: boolean = false;
   timer: number;
   requestId: string;
+  serviceCount: ServiceCountDTO;
+
   constructor(public navCtrl: NavController, 
               private appService: AppService, 
+              private statService: StatisticsService,
               private native: Native, 
               public router: Router,
               private httpService: HttpHelper) {
@@ -54,7 +59,18 @@ export class CreatePage {
     
   }
 
-  refresh() {
+  refreshCounter(): Promise<void>{
+   return new Promise<void>((resolve, reject) =>{
+    this.statService.getUserStatisticsFromService(StatisticsService.ID_PUBLISH, this.did).then(response=>{
+      this.serviceCount = response;
+      resolve()
+    }).catch(error =>{
+      resolve()
+    })
+   })
+  }
+
+  async refresh() {
     console.log("config", AppService.intentConfig);
     if (AppService.intentConfig && AppService.intentConfig.transfer) {
       let credentials = JSON.parse(atob(AppService.intentConfig.transfer.didrequest.payload));
@@ -75,11 +91,21 @@ export class CreatePage {
       this.profileValues = values;
       this.endTransaction = false;
       this.hasTransaction = true;
+      
+      await this.refreshCounter();
+
+      if (!this.serviceCount ||
+         (this.serviceCount && this.serviceCount.count >= 5))
+      {
+        this.startResetTimer()
+      }
+
     }
     else {
       this.hasTransaction = false;
       this.endTransaction = false;
       this.did = ""
+      this.resetTimer = ""
       this.profileValues =[]
       this.payload = "";
       this.memo = "";
@@ -93,7 +119,19 @@ export class CreatePage {
     }
   }
 
+  isObjImage(obj)
+  {
+    return this.appService.isObjImage(obj);
+  }
+
+  getBase64Image(obj)
+  {
+    return this.appService.getBase64Image(obj);
+  }
+
   doPublish() {
+    if (!this.serviceCount || this.serviceCount.count >=5) return;
+
     let action = "/v1/didtx/create"
     let data = {
       "didRequest" : AppService.intentConfig.transfer.didrequest,
@@ -135,7 +173,7 @@ export class CreatePage {
   }
 
   startTimer(){
-    setTimeout(() =>{
+    setTimeout( () =>{
       this.timer --;
       if (this.timer > 0)
       {
@@ -146,6 +184,38 @@ export class CreatePage {
     }, 1000)
   }
 
+  public resetTimer: string = ""
+
+  startResetTimer(){
+    setTimeout(async () =>{
+      if (!AppService.intentConfig) return
+      let tomorrow = moment(`${moment().utc().add(1, 'days').format("YYYY-MM-DD")}T00:00Z`) 
+      let diffHours = tomorrow.utc().diff(moment().utc(), "minutes")
+      let diffMinutes = tomorrow.utc().diff(moment().utc(), "seconds")
+      let hours = Math.floor(diffHours / 60);
+      let minutes = diffHours % 60
+      let seconds = diffMinutes % 60;
+      this.resetTimer =  `${this.formatZero(hours)}:${this.formatZero(minutes)}:${this.formatZero(seconds)}`
+      try {
+        await this.refreshCounter()
+        if (this.serviceCount.count >= 5)
+        {
+          this.startResetTimer();
+        }  
+      } catch (error) {
+        this.startResetTimer();  
+      }
+    }, 1000)
+  }
+
+ 
+
+  formatZero(value, size = 2) {
+    var s = String(value);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
+}
+
   returnTransaction()
   {
     this.timer = -1;
@@ -155,6 +225,7 @@ export class CreatePage {
       { txid: this.requestId },
       AppService.intentConfig.transfer.intentId,
       success =>{
+        AppService.intentConfig = null
         appManager.close()
       },
       error =>{
@@ -170,6 +241,7 @@ export class CreatePage {
       {},
       AppService.intentConfig.transfer.intentId,
       success =>{
+        AppService.intentConfig = null
         appManager.close()
       },
       error =>{
@@ -177,6 +249,15 @@ export class CreatePage {
       }
     )
     this.refresh();
+  }
+
+  getButtonPublishClass()
+  {
+    if (this.serviceCount && this.serviceCount.count < 5)
+    {
+      return "button-publish"
+    }
+    return "button-publish-disabled"
   }
 
   copy(value){

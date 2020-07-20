@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AppService } from 'src/app/services/app.service';
+import { StatisticsService } from 'src/app/services/statistics.service';
 import { RequestsService } from 'src/app/services/requests.service';
 import { RequestDTO } from 'src/app/models/request.model';
+import { ServiceCountDTO } from 'src/app/models/servicecount.model';
+import { StatisticsDTO } from 'src/app/models/statistics.model';
 
 declare let appManager: AppManagerPlugin.AppManager;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
@@ -19,9 +22,13 @@ export class HomePage {
   public isShowProfile: boolean = false;
   public isSearchOpen:boolean = false;
   public search:string = "";
+  public idPublishStatistics: ServiceCountDTO;
+  public mediaUploadStatistics: ServiceCountDTO;
+  public statistics : StatisticsDTO;
 
   constructor(public navCtrl: NavController, 
               private appService: AppService,
+              private statisticsService: StatisticsService,
               private requestService: RequestsService) {
     this.selectedTab = "requests";
     if (!AppService.signedIdentity || AppService.signedIdentity.didString == ""){
@@ -39,14 +46,27 @@ export class HomePage {
   }
 
   async ionViewWillEnter(){
-    await this.getRequests()
+    await this.refresh()
   } 
 
   tabChanged(ev: any) {
     this.selectedTab = ev.detail.value;
   }
 
-  
+  async refresh()
+  {
+    await this.getRequests()
+
+    this.statistics = await this.statisticsService.getAppStatistics();
+
+    Promise.all([
+      this.statisticsService.getUserStatisticsFromService(StatisticsService.ID_PUBLISH),
+      this.statisticsService.getUserStatisticsFromService(StatisticsService.MEDIA_UPLOAD)
+      ]).then(response =>{
+        this.idPublishStatistics = response[0] 
+        this.mediaUploadStatistics = response[1]  
+      })
+  }
 
   async getRequests(){
     var response = await this.requestService.getRecentRequestsFromDidSession();
@@ -108,8 +128,16 @@ export class HomePage {
   }
 
   async doRefresh(evnt){
-    await this.getRequests()
+    
+    await this.refresh()
     evnt.target.complete();
+  }
+
+  doLogin(){
+    this.appService.tryDoLogin(true).then(async response =>{
+       await this.refresh()
+       this.closeProfile()
+    });
   }
 
 }

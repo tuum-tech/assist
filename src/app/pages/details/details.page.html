@@ -55,10 +55,14 @@
                     <span class="item-value">did:elastos:{{request.did}} <img
                             src="../../../assets/images/Icon-copy.png" (click)="copy(request.did)" /> </span>
                 </p>
-                <p *ngFor="let item of profileValues">
+                <div class="item-values" *ngFor="let item of profileValues">
                     <span class="item-header">{{item.header}}</span>
-                    <span class="item-value">{{item.value}}</span>
-                </p>
+                    <span *ngIf="!isObjImage(item.value)" class="item-value">{{item.value}}</span>
+                    <div *ngIf="isObjImage(item.value)" style="padding-left: 20px; padding-right: 20px;">
+                        <img  [src]="getBase64Image(item.value)" alt="Item image" />
+                    </div>
+                    
+                </div>
                 <div class="details-memo" *ngIf="isOwnRequest()">
                     <span>Message</span>
                     {{request.memo}}

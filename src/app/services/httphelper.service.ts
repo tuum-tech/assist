@@ -21,11 +21,17 @@ export class HttpHelper{
                 'Content-Type': 'application/json',
                 'Authorization': environment.apiSecretKey
             })
-            this.http.post(url, data, { headers: headers}).toPromise().then(response =>{
-                resolve(response as T)
-            }).catch(err=>{
-                reject()
-            });
+            try {
+                this.http.post(url, data, { headers: headers}).toPromise().then(response =>{
+                    resolve(response as T)
+                }).catch(err=>{
+                    reject()
+                });    
+            } catch (error) {
+                console.error(error)
+                reject("Error send post")
+            }
+            
         })
     }
 
@@ -35,11 +41,17 @@ export class HttpHelper{
                 'Content-Type': 'application/json',
                 'Authorization': environment.apiSecretKey
             })
-            this.http.get(url, { headers: headers}).toPromise().then(response =>{
-                resolve(response as T)
-            }).catch(err=>{
-                reject(err)
-            });
+            try {
+                this.http.get(url, { headers: headers}).toPromise().then(response =>{
+                    resolve(response as T)
+                }).catch(err=>{
+                    reject(err)
+                });    
+            } catch (error) {
+               console.error(error)
+               reject("Error get") 
+            }
+            
         })
     }
 

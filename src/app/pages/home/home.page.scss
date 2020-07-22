@@ -7,6 +7,13 @@ ion-content {
     margin: 15px 15px 0px 15px;
   }
 
+
+  .header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+
   ion-grid {
     padding: 0px !important;
     margin-left: 0px !important;
@@ -176,6 +183,14 @@ ion-content {
     width: 100px;
     height: 100px;
     margin-bottom: 15px;
+  }
+
+  .profile-details-avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
   }
 
   .profile-details-items div {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AppService } from '../../services/app.service'
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 declare let appManager: any;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
@@ -16,18 +17,25 @@ export class SplashPage implements OnInit{
 
     constructor(public navCtrl: NavController,
               public router: Router,
+              private localStorage: LocalStorageService,
               private appService: AppService)  {
     
 
             }
 
     ngOnInit(){
-        setTimeout(() =>{
+        setTimeout(async () =>{
           if (AppService.intentConfig && AppService.intentConfig.transfer){
             return;
           }
-
-            this.router.navigate(["onboarding"],{ replaceUrl: true });  
+          let profile = await this.localStorage.getProfile();
+          if (profile) {
+              AppService.signedIdentity = profile;
+              this.router.navigate(["home"],{ replaceUrl: true });  
+          } else {
+              this.router.navigate(["onboarding"],{ replaceUrl: true });  
+          }
+            
         }, 2000)
     }
 

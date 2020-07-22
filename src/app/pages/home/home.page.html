@@ -10,7 +10,9 @@
         <div style="float: right;">
           <input *ngIf="isSearchOpen" type="text" [(ngModel)]="search" placeholder="Find by confirmation id" />
           <img src="../../../assets/images/icon-search@2x.png" height="36px" (click)="openSearch()" />
-          <img src="../../../assets/images/Nav-bar-Profile.png" (click)="openProfile()" />
+          <img *ngIf="avatar == null" src="../../../assets/images/Nav-bar-Profile.png" (click)="openProfile()" />
+          <img *ngIf="avatar" class="header-avatar" [src]="avatar" (click)="openProfile()" /> 
+          
         </div>
       </div>
 
@@ -139,7 +141,8 @@
     </div>
     <div class="profile-details">
       <div class="profile-details-items">
-        <img class="profile-details-img" src="../../../assets/images/icon-Profile.png" /> 
+        <img *ngIf="avatar == null" class="profile-details-img" src="../../../assets/images/icon-Profile.png" /> 
+        <img *ngIf="avatar" class="profile-details-avatar" [src]="avatar" /> 
         <div>
           <span class="profile-details-span-header">
               DID

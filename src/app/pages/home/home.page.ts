@@ -25,6 +25,7 @@ export class HomePage {
   public idPublishStatistics: ServiceCountDTO;
   public mediaUploadStatistics: ServiceCountDTO;
   public statistics : StatisticsDTO;
+  
 
   constructor(public navCtrl: NavController, 
               private appService: AppService,
@@ -90,6 +91,11 @@ export class HomePage {
 
   get name(): string{
     return AppService.signedIdentity.name;
+  }
+
+  get avatar(): string{
+    if (!AppService.signedIdentity.avatar) return null;
+    return `${AppService.signedIdentity.avatar.base64ImageData}`;
   }
 
   openProfile(){

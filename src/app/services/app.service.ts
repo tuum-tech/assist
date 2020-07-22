@@ -112,33 +112,37 @@ export class AppService {
 
         return new Promise(async (resolve, reject) => {
 
-            if (!force)
-            {
-                let profile = await this.localStorage.getProfile();
-                if (profile) {
-                    AppService.signedIdentity = profile;
-                    resolve(true);
-                    return;
-                }
-            }
+          
             
 
             appManager.sendIntent("credaccess", {
                 claims:
                 {
-                    name: false
+                    name: false,
+                    avatar: false
                 }
               },
                 {},
                 (response) => {
-                    console.log(response)
 
                     var nameSubject = self.getSubject(response.result.presentation, "name");
+                    var avatarSubject = self.getSubject(response.result.presentation, "avatar");
                     
+                    var avatar = null;
+
+                    if (avatarSubject)
+                    {
+                        avatar = {
+                            contentType: avatarSubject["content-type"],
+                            base64ImageData: this.getBase64Image(avatarSubject)
+                        }
+                    }
+
                     AppService.signedIdentity = {
                         didString: response.result.did,
                         didStoreId: response.result.did,
-                        name: nameSubject || ""
+                        name: nameSubject || "",
+                        avatar: avatar
                     };
                     this.localStorage.setProfile(AppService.signedIdentity)
                     resolve(true);

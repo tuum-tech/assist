@@ -55,9 +55,14 @@ export class DetailsPage {
       {
         credentials.verifiableCredential.forEach(function (value) {
           let credId = value.id.replace("#", "");
+          let item = value.credentialSubject[credId]
+          
+          if (typeof item !== 'object' && item !== null)
+              item = decodeURIComponent(escape(item))
+              
           values.push({
             "header": credId,
-            "value": value.credentialSubject[credId]
+            "value": item
           })
         }); 
       }

@@ -10,6 +10,7 @@ import { StatisticsService } from 'src/app/services/statistics.service';
 import { ServiceCountDTO } from 'src/app/models/servicecount.model';
 import * as moment from 'moment'
 
+
 declare let appManager: AppManagerPlugin.AppManager;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
 declare let didManager: DIDPlugin.DIDManager;
@@ -76,15 +77,21 @@ export class CreatePage {
       let credentials = JSON.parse(atob(AppService.intentConfig.transfer.didrequest.payload));
       this.did = credentials.id;
      
-
+      
       var values = [];
       if (credentials.verifiableCredential)
       {
         credentials.verifiableCredential.forEach(function (value) {
           let credId = value.id.replace("#", "");
+          let item = value.credentialSubject[credId]
+          
+          if (typeof item !== 'object' && item !== null)
+              item = decodeURIComponent(escape(item))
+
+
           values.push({
             "header": credId,
-            "value": value.credentialSubject[credId]
+            "value": item
           })
         }); 
       }
@@ -128,6 +135,7 @@ export class CreatePage {
   {
     return this.appService.getBase64Image(obj);
   }
+ 
 
   doPublish() {
     if (!this.serviceCount || this.serviceCount.count >=5) return;

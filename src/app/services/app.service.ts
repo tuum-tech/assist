@@ -9,7 +9,7 @@ import { ModalDialogEnum } from "../components/modal-dialog/modal-dialog.config"
 
 declare let appManager: AppManagerPlugin.AppManager;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
-
+declare let notificationManager: NotificationManagerPlugin.NotificationManager;
 
 let myService = null;
 
@@ -154,6 +154,22 @@ export class AppService {
                 })
         });
 
+    }
+
+    addNewRequestToBackground(id: string)
+    {
+        let payload = {
+            method: "new",
+            param: id
+        } 
+
+        
+
+        appManager.sendMessage("#service:backgroundservice", AppManagerPlugin.MessageType.INTERNAL, JSON.stringify(payload), ()=>{
+            // Nothing to do
+        }, (err)=>{
+            console.log("Failed to send RPC message to the background service", err);
+        });
     }
 
     private getSubject(presentation, fragment): any {

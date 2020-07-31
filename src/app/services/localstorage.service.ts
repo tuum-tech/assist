@@ -36,6 +36,10 @@ export class LocalStorageService {
         });
     }
 
+    public setValue<T>(key: string, value: T): Promise<T> {
+        return this.storage.set(key, value);
+    }
+
     public set(key: string, value: any): any {
         
         return this.storage.set(key, JSON.stringify(value));
@@ -59,6 +63,18 @@ export class LocalStorageService {
                 let value = await this.storage.get(key); 
                    
                 resolve(JSON.parse(value))
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    public getValue<T>(key: string): Promise<T> {
+        return new Promise(async (resolve, reject)=>{
+            try {
+                let value = await this.storage.get(key); 
+                   
+                resolve(value as T)
             } catch (error) {
                 reject(error)
             }

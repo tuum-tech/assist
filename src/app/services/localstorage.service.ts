@@ -36,6 +36,10 @@ export class LocalStorageService {
         });
     }
 
+    public setValue<T>(key: string, value: T): Promise<T> {
+        return this.storage.set(key, value);
+    }
+
     public set(key: string, value: any): any {
         
         return this.storage.set(key, JSON.stringify(value));

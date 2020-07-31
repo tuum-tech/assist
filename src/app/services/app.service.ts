@@ -160,7 +160,7 @@ export class AppService {
     {
         let payload = {
             method: "new",
-            params: id
+            param: id
         } 
 
         

@@ -33,7 +33,7 @@ export class BackgroundService{
                     console.log("New request to monitor", rpcMessage.param)
                     notificationManager.sendNotification({
                         key: rpcMessage.param,
-                        title: `Your DID document ${rpcMessage.param} is being published`
+                        title: `Your DID document with confirmation ID "${rpcMessage.param}" is being published`
                     })
 
                     let keys = await this.getCollectionFromStorage(BackgroundService.BUFFER_KEY)
@@ -77,7 +77,7 @@ export class BackgroundService{
                         completeKeys.push(request.id)
                         notificationManager.sendNotification({
                             key: request.id,
-                            title: `Your DID document ${request.id} is now published on the blockchain`
+                            title: `Your DID document with confirmation ID "${request.id}" is now published on the blockchain`
                         })
                         
                     }

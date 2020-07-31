@@ -65,6 +65,18 @@ export class LocalStorageService {
         })
     }
 
+    public getValue<T>(key: string): Promise<T> {
+        return new Promise(async (resolve, reject)=>{
+            try {
+                let value = await this.storage.get(key); 
+                   
+                resolve(value as T)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
     public getVal(key, func) {
         this.storage.get(key).then((val) => {
             if (typeof(val) == "string") {

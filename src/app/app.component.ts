@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Router } from '@angular/router';
 import { AppService } from './services/app.service';
+import { BackgroundService } from './services/background.service';
 
 declare let appManager: AppManagerPlugin.AppManager;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
@@ -14,18 +15,37 @@ declare let titleBarManager: TitleBarPlugin.TitleBarManager;
 })
 export class MyApp {
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, router: Router, private appService: AppService) {
+  constructor(platform: Platform, 
+              statusBar: StatusBar, 
+              splashScreen: SplashScreen, 
+              router: Router,
+              private appService: AppService,
+              private backgroundService: BackgroundService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-      
-      appService.setIntentListener();
+      appManager.getStartupMode((startupInfo: AppManagerPlugin.StartupInfo) => {
 
-      document.addEventListener("deviceready", ()=>{
-        appManager.setVisible("show");
-      }, false);
+        console.log(startupInfo.startupMode)
+
+        if (startupInfo.startupMode === 'service'){
+          console.log("Service start");
+          this.backgroundService.initialize()
+        } else {
+          console.log("Application start");
+          statusBar.styleDefault();
+          splashScreen.hide();
+      
+          this.appService.setIntentListener();
+          document.addEventListener("deviceready", ()=>{
+            appManager.setVisible("show");
+          }, false);
+        }
+            
+      });
+
+      
+      
       
     });
   }

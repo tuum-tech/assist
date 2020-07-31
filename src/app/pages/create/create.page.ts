@@ -4,11 +4,11 @@ import { AppService } from 'src/app/services/app.service';
 import { Native } from 'src/app/services/Native';
 import { Router } from '@angular/router';
 import { HttpHelper } from 'src/app/services/httphelper.service';
-import { RequestDTO } from 'src/app/models/request.model';
 import { PostDTO } from 'src/app/models/httpresponse.model';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { ServiceCountDTO } from 'src/app/models/servicecount.model';
 import * as moment from 'moment'
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 
 declare let appManager: AppManagerPlugin.AppManager;
@@ -157,6 +157,9 @@ export class CreatePage {
                this.doCancel();
              });
       } else {
+
+
+
         this.timer = 20;
         this.requestId = response.data["confirmation_id"];
         this.endTransaction = true;
@@ -168,6 +171,7 @@ export class CreatePage {
             this.startTimer();
           })
         } else {
+          this.appService.addNewRequestToBackground(this.requestId)
           this.startTimer();
         }
         

@@ -1,6 +1,6 @@
 {
   "id": "tech.tuum.assist",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "version_code": 1,
   "name": "Assist",
   "short_name": "Assist",
@@ -37,12 +37,12 @@
   "urls": [
     "https://wogbjv3ci3.execute-api.us-east-1.amazonaws.com/prod/*"
   ],
-    "intent_filters": [
-        {
-            "action": "didtransaction"
-        }
-   ],
-   "startup_service": [
+  "intent_filters": [
+    {
+      "action": "didtransaction"
+    }
+  ],
+  "startup_service": [
     "backgroundservice"
   ],
   "background_color": "#4e8ef7",

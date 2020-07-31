@@ -1,7 +1,7 @@
 {
   "id": "tech.tuum.test.assist",
   "version": "1.0.0",
-  "version_code": 1,
+  "version_code": 2,
   "name": "Assist Test",
   "short_name": "Assist Test",
   "short_description": "Assist dApp for elastOS",

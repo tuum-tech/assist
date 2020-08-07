@@ -1,0 +1,39 @@
+<ion-content class="ion-no-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div style="height: 100%">
+        <div class="header">
+            <img src="../../../assets/images/icon-did-search.svg" width="40px" />
+            <span>Search DID</span>       
+        </div>
+        <div class="recent-requests">
+           
+            <div class="details-memo">
+                <img src="../../../assets/images/icon-search@2x.png" (click)="searchDocuments()" />
+                <input type="text" (keyup)="filterList($event.target.value)" placeholder="Search by DID" auto-grow="true" />
+            </div>
+            <div class="document-back" *ngIf="documents == null && !isLoading">
+                <img src="../../../assets/images/back-did-search.svg" />
+                
+                <span>
+                    Search DID documents on blockchain
+                </span>
+            </div>
+
+            <div class="document-loading" *ngIf="isLoading">
+                <img src="../../../assets/images/spinner.svg" />
+                
+                <span>
+                    Retrieving DID Documents
+                </span>
+            </div>
+    
+
+        </div>
+
+        
+    </div>
+</ion-content>

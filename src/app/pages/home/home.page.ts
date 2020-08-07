@@ -133,6 +133,10 @@ export class HomePage {
     await this.appService.presentInfo("This feature is not available")
   }
 
+  async openSearchDid(){
+    this.navCtrl.navigateForward(['didsearch']);
+  }
+
   async doRefresh(evnt){
     
     await this.refresh()

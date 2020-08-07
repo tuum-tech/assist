@@ -5,12 +5,14 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { ModalDialogComponent } from "./modal-dialog/modal-dialog";
 import { ModalDialogController } from "./modal-dialog/modal-dialog.controller";
+import { DidDocumentComponent } from "./did-document/diddocument.component";
 
 
 @NgModule({
     declarations: [
       RequestItemComponent,
-      ModalDialogComponent
+      ModalDialogComponent,
+      DidDocumentComponent,
      ],
     imports: [
       CommonModule,
@@ -19,6 +21,7 @@ import { ModalDialogController } from "./modal-dialog/modal-dialog.controller";
     ],
     exports: [
       RequestItemComponent,
+      DidDocumentComponent,
       ModalDialogComponent
     ],
     providers: [

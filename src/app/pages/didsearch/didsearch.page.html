@@ -32,7 +32,7 @@
             </div>
 
             <div class="document-list" *ngIf="!isLoading && documents != null && documents.length > 0">
-                <did-document *ngFor="let document of documents " [did]="documentSearch.did" [isLatest]="this.documents.indexOf(document) == 0" [document]="document">
+                <did-document *ngFor="let document of documents " [did]="documentSearch.did" [isLatest]="this.documents.indexOf(document) == 0" [document]="document" (click)="openDocument(document)">
 
                 </did-document>
             </div>

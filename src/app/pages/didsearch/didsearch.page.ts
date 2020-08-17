@@ -22,9 +22,9 @@ export class DidSearchPage {
   public isLoading: boolean = false;
 
   constructor(public navCtrl: NavController, private appService: AppService, private documentService: DocumentsService) {
-    // if (!AppService.signedIdentity || AppService.signedIdentity.didString == "") {
-    //   this.navCtrl.navigateForward(['onboarding', { replaceUrl: true }]);
-    // }
+    if (!AppService.signedIdentity || AppService.signedIdentity.didString == "") {
+      this.navCtrl.navigateForward(['onboarding', { replaceUrl: true }]);
+    }
   }
 
   async ionViewDidEnter() {
@@ -62,12 +62,14 @@ export class DidSearchPage {
 
     if (response)
     {
-      console.log("response", response)
         this.documentSearch = response
-    } else {
-      console.log("response is empty")
-    }
 
+        if (!this.documentSearch.documents ||
+            this.documents.length == 0)
+            {
+               this.appService.toast("No documents found", 5000) 
+            }
+    }
     this.isLoading = false
 
   }
@@ -77,20 +79,24 @@ export class DidSearchPage {
     return this.documentSearch.did
   }
 
+
   get documents(): DocumentDTO[]{
     
     if (!this.documentSearch) return []
-
     let response: DocumentDTO[] = [];
-
     for (let key in this.documentSearch.documents) {
-        response.push(this.documentSearch.documents[key])
+        let item = this.documentSearch.documents[key]
+        item.id = key
+        item.did = this.documentSearch.did
+        response.push(item)
     }
-    console.log("response is", response)
     return response
   }
   
- 
+  openDocument(document: DocumentDTO){
+    DocumentsService.selectedDocument = document;
+    this.navCtrl.navigateForward(['document']);
+  }
  
   goBack() {
     this.navCtrl.back();

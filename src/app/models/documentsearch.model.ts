@@ -16,6 +16,8 @@ export interface SubjectMap{
 }
 
 export class DocumentDTO{
+    id: string;
+    did: string;
     published: string;
     verifiable_creds: VerifiableCredentialDTO[];
 }

@@ -1,0 +1,54 @@
+<ion-content class="ion-no-padding">
+    <div style="height: 100%">
+        <div class="header">
+            <img src="../../../assets/images/icon-Close.png" (click)="goBack()" />
+        </div>
+        <div class="recent-requests">
+            <div class="recent-item">
+                <img class="recent-item-icon" src="../../../assets/images/icon-did-search.svg" width="40px" />
+                <span class="recent-item-title">
+                    DID
+                </span>
+                <span class="recent-item-id">
+                    {{document.did}}
+                    <img
+                    src="../../../assets/images/Icon-copy.png" (click)="copy(request.id)" />
+                </span>
+                <br>
+                <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> {{timeMoment}}</span>
+                <span class="recent-item-status-success"> <img src="../../../assets/images/Icon feather-check-circle-1.png" height="12px" /> published </span>
+            </div>
+            <div class="blockchain-details">
+                <div class="section-header">
+                    <span>Transaction Details</span>
+                </div>
+                <p>
+                    <span class="item-header">Transaction Hash</span>
+                    <span class="item-value">
+                        {{document.id}}
+                        <img src="../../../assets/images/Icon-copy.png" (click)="copy('https://idchain.elastos.org/tx/' + blockchainTx.txid)" />
+                    </span>
+                </p>
+            </div>
+            <div class="request-details" *ngFor="let item of document.verifiable_creds">
+                <div class="section-header">
+                    <span>{{getCaptalizedHeader(item)}}</span>
+                </div>
+                <p>
+                    <span class="item-header">Type</span>
+                    <span class="item-value" *ngFor="let value of item.type">{{value}}</span>
+                </p>
+                <p>
+                    <span class="item-header">Issued on</span>
+                    <span class="item-value">{{formatedMoment(item.issuance_date)}}</span>
+                </p>
+                <p>
+                    <span class="item-header">Expires on</span>
+                    <span class="item-value">{{formatedMoment(item.expiration_date)}}</span>
+                </p>
+            </div>
+
+
+        </div>
+    </div>
+</ion-content>

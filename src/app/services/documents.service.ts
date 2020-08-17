@@ -3,13 +3,13 @@ import { HttpHelper } from "./httphelper.service";
 import { RequestDTO } from "../models/request.model";
 import { PostDTO as HttpResponseDTO } from "../models/httpresponse.model";
 import { AppService } from "./app.service";
-import { DocumentSearchDTO } from "../models/documentsearch.model";
+import { DocumentSearchDTO, DocumentDTO } from "../models/documentsearch.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DocumentsService{
-    
+    static selectedDocument: DocumentDTO;
     constructor(private httpService: HttpHelper) {
     }
 

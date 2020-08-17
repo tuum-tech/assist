@@ -49,7 +49,7 @@ export class DidSearchPage {
     
   }
 
-  filterList(value) {
+  onInput(value) {
     this.search = value;
   }
 
@@ -60,18 +60,25 @@ export class DidSearchPage {
 
     let response = await this.documentService.getDocumentsFromDid(this.search);
 
-    console.log("did document response", response)
-
     if (response)
     {
+      console.log("response", response)
         this.documentSearch = response
+    } else {
+      console.log("response is empty")
     }
 
     this.isLoading = false
 
   }
 
+  get did(): string{
+    if (!this.documentSearch) return ""
+    return this.documentSearch.did
+  }
+
   get documents(): DocumentDTO[]{
+    
     if (!this.documentSearch) return []
 
     let response: DocumentDTO[] = [];
@@ -79,10 +86,11 @@ export class DidSearchPage {
     for (let key in this.documentSearch.documents) {
         response.push(this.documentSearch.documents[key])
     }
-
+    console.log("response is", response)
     return response
   }
-
+  
+ 
  
   goBack() {
     this.navCtrl.back();

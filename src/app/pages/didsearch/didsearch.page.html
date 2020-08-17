@@ -13,9 +13,9 @@
            
             <div class="details-memo">
                 <img src="../../../assets/images/icon-search@2x.png" (click)="searchDocuments()" />
-                <input type="text" (keyup)="filterList($event.target.value)" placeholder="Search by DID" auto-grow="true" />
+                <input #searchInput type="text" (input)="onInput(searchInput.value)" placeholder="Search by DID" auto-grow="true" (keyup.enter)="searchDocuments()" />
             </div>
-            <div class="document-back" *ngIf="documents == null && !isLoading">
+            <div class="document-back" *ngIf="!isLoading && (documents == null || documents.length == 0)">
                 <img src="../../../assets/images/back-did-search.svg" />
                 
                 <span>
@@ -29,6 +29,12 @@
                 <span>
                     Retrieving DID Documents
                 </span>
+            </div>
+
+            <div class="document-list" *ngIf="!isLoading && documents != null && documents.length > 0">
+                <did-document *ngFor="let document of documents " [did]="documentSearch.did" [isLatest]="this.documents.indexOf(document) == 0" [document]="document">
+
+                </did-document>
             </div>
     
 

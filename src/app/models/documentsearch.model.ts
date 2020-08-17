@@ -12,7 +12,7 @@ export interface DocumentMap{
 }
 
 export interface SubjectMap{
-    [id: string] : string
+    [id: string] : any
 }
 
 export class DocumentDTO{

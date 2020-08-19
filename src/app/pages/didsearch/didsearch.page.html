@@ -1,0 +1,45 @@
+<ion-content class="ion-no-padding">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div style="height: 100%">
+        <div class="header">
+            <img src="../../../assets/images/icon-did-search.svg" width="40px" />
+            <span>Search DID</span>       
+        </div>
+        <div class="recent-requests">
+           
+            <div class="details-memo">
+                <img src="../../../assets/images/icon-search@2x.png" (click)="searchDocuments()" />
+                <input #searchInput type="text" (input)="onInput(searchInput.value)" placeholder="Search by DID" auto-grow="true" (keyup.enter)="searchDocuments()" />
+            </div>
+            <div class="document-back" *ngIf="!isLoading && (documents == null || documents.length == 0)">
+                <img src="../../../assets/images/back-did-search.svg" />
+                
+                <span>
+                    Search DID documents on blockchain
+                </span>
+            </div>
+
+            <div class="document-loading" *ngIf="isLoading">
+                <img src="../../../assets/images/spinner.svg" />
+                
+                <span>
+                    Retrieving DID Documents
+                </span>
+            </div>
+
+            <div class="document-list" *ngIf="!isLoading && documents != null && documents.length > 0">
+                <did-document *ngFor="let document of documents " [did]="documentSearch.did" [isLatest]="this.documents.indexOf(document) == 0" [document]="document" (click)="openDocument(document)">
+
+                </did-document>
+            </div>
+    
+
+        </div>
+
+        
+    </div>
+</ion-content>

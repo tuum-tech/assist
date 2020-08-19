@@ -1,0 +1,130 @@
+ion-content {
+    --background: #f2f5fa;
+    height: 100%;
+
+    .header {
+        margin: 15px 15px 0px 15px;
+    }
+
+    
+    
+      .header span {
+        position: absolute;
+        display: inline-block;
+        font-family: PoppinsSemiBold;
+        font-size: 22px;
+        margin-left: 15px;
+        margin-top: 8px;
+      }
+
+    .recent-requests {
+        background-color: #ffffff;
+        border-radius: 13px 13px 0 0;
+        position: relative;
+
+        bottom: 0;
+        top: 12px;
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+        height: 100% auto;
+        min-height: 100%;
+
+        padding: 10px 15px;
+    }
+
+  
+
+    .document-back {
+        position: relative;
+        bottom: 0;
+        top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 18px;
+        padding: 10px 15px;
+      }
+      .document-back img {
+        
+        display: block;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+      }
+
+      .document-back span {
+        display: block;
+        position: absolute;
+        margin-top: 120px;
+        width: 220px;
+      }
+
+      .document-loading {
+        position: relative;
+        bottom: 0;
+        top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 18px;
+        padding: 10px 15px;
+      }
+      .document-loading img {
+        
+        display: block;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+      }
+
+      .document-loading span {
+        display: block;
+        position: absolute;
+        margin-top: 100px;
+        width: 220px;
+      }
+
+    .recent-requests h2 {
+        font-family: PoppinsSemiBold;
+        font-size: 24px;
+    }
+
+    .details-memo {
+        display: block;
+        background-color: #eaf0f8;
+        border-radius: 8px;
+        padding: 8px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .details-memo img {
+        display: inline-block;
+        font-family: PoppinsMedium;
+        font-size: 14px;
+        height: 24px;
+    }
+
+    .details-memo input {
+        position: absolute;
+        display: inline-block;
+        border-width: 0px;
+        margin-left: 10px;
+        width: 80%;
+        height: 24px;
+        border-color: transparent;
+        background-color: transparent;
+    }
+
+    .details-memo input,
+    input:focus {
+        outline: none;
+    }
+}

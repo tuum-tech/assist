@@ -7,6 +7,8 @@ import { OnBoardingPage } from './pages/onboarding/onboarding.page';
 import { RequestsPage } from './pages/requests/requests.page';
 import { DetailsPage } from './pages/details/details.page';
 import { CreatePage } from './pages/create/create.page';
+import { DidSearchPage } from './pages/didsearch/didsearch.page';
+import { DocumentPage } from './pages/document/document.page';
 
 const routes: Routes = [
   { path: '', component: SplashPage, pathMatch: 'full' },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'home', component: HomePage },
   { path: 'requests', component: RequestsPage },
   { path: 'details', component: DetailsPage },
+  { path: 'didsearch', component: DidSearchPage },
+  { path: 'document', component: DocumentPage },
 ];
 
 @NgModule({

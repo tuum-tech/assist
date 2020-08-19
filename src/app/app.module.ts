@@ -21,6 +21,8 @@ import { RequestsPage } from './pages/requests/requests.page';
 import { CreatePage } from './pages/create/create.page';
 import { IonicStorageModule } from '@ionic/storage';
 import { FormsModule } from '@angular/forms';
+import { DidSearchPage } from './pages/didsearch/didsearch.page';
+import { DocumentPage } from './pages/document/document.page';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { FormsModule } from '@angular/forms';
     SplashPage,
     OnBoardingPage,
     DetailsPage,
-    RequestsPage
+    RequestsPage,
+    DidSearchPage,
+    DocumentPage
   ],
   imports: [
     CommonModule,
@@ -54,7 +58,9 @@ import { FormsModule } from '@angular/forms';
     SplashPage,
     OnBoardingPage,
     DetailsPage,
-    RequestsPage
+    RequestsPage,
+    DidSearchPage,
+    DocumentPage
   ],
   providers: [
     StatusBar,

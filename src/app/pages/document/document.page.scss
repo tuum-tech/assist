@@ -107,6 +107,10 @@ ion-content {
         margin: 10px 5px;
     }
 
+    .item-div {
+        margin: 5px;
+    }
+
     .details-memo{
         display: block;
         background-color: #EAF0F8;
@@ -123,5 +127,19 @@ ion-content {
         font-family: PoppinsMedium;
         font-size: 14px;  
         
+      }
+
+
+      .issuer-cred-avatar{
+        object-fit: cover;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        float: left;
+        margin-right: 10px;
+      }
+    
+      .issuer-cred-name{
+        display: block;
       }
 }

@@ -34,18 +34,36 @@
                 <div class="section-header">
                     <span>{{getCaptalizedHeader(item)}}</span>
                 </div>
-                <p>
+                <div class="item-div">
                     <span class="item-header">Type</span>
                     <span class="item-value" *ngFor="let value of item.type">{{value}}</span>
-                </p>
-                <p>
+                </div>
+                <div class="item-div">
                     <span class="item-header">Issued on</span>
                     <span class="item-value">{{formatedMoment(item.issuance_date)}}</span>
-                </p>
-                <p>
+                </div>
+                <div class="item-div">
                     <span class="item-header">Expires on</span>
                     <span class="item-value">{{formatedMoment(item.expiration_date)}}</span>
-                </p>
+                </div>
+                <div class="item-div" *ngFor="let element of getSubjects(item)">
+                    <span class="item-header">{{element.header}}</span>
+                    <span class="item-value" *ngIf="!element.isImage">{{element.value}}</span>
+                    <div *ngIf="element.isImage" style="padding-left: 20px; padding-right: 20px;" >
+                        
+                        <img [src]="element.value" alt="Subject image" />
+                    </div>
+                </div>
+                <div class="item-div" *ngIf="item.issuer">
+                    <span class="item-header">Validator</span>
+                    <span class="item-value">
+                        <img class="issuer-cred-avatar" *ngIf="hasAvatarIssuer(item.issuer)" [src]="getIssuerAvatar(item.issuer)">
+                        <span class="issuer-cred-name">{{getIssuerName(item.issuer)}}</span> 
+                        <span class="issuer-cred-did">{{getIssuerDid(item.issuer)}}</span> 
+                    </span>
+                </div>
+               
+             
             </div>
 
 

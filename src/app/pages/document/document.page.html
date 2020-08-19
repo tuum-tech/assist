@@ -12,7 +12,7 @@
                 <span class="recent-item-id">
                     {{document.did}}
                     <img
-                    src="../../../assets/images/Icon-copy.png" (click)="copy(request.id)" />
+                    src="../../../assets/images/Icon-copy.png" (click)="copy(document.did)" />
                 </span>
                 <br>
                 <span class="recent-item-time"> <img src="../../../assets/images/Time.png" /> {{timeMoment}}</span>
@@ -26,7 +26,7 @@
                     <span class="item-header">Transaction Hash</span>
                     <span class="item-value">
                         {{document.id}}
-                        <img src="../../../assets/images/Icon-copy.png" (click)="copy('https://idchain.elastos.org/tx/' + blockchainTx.txid)" />
+                        <img src="../../../assets/images/Icon-copy.png" (click)="copy('https://idchain.elastos.org/tx/' + document.id)" />
                     </span>
                 </p>
             </div>

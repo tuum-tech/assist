@@ -193,6 +193,7 @@ export class AppService {
             from: intent.from,
             payPassword: '',
             fee: 0,
+            signedindid: intent.params.signedindid,
             didrequest: intent.params.didrequest,
             chainId: 'IDChain',
         };

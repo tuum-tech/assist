@@ -75,7 +75,17 @@ export class CreatePage {
     console.log("config", AppService.intentConfig);
     if (AppService.intentConfig && AppService.intentConfig.transfer) {
       let credentials = JSON.parse(atob(AppService.intentConfig.transfer.didrequest.payload));
-      this.did = credentials.id;
+
+      console.log("Signed DID", AppService.intentConfig.transfer.signedindid)
+
+      if (AppService.intentConfig.transfer.signedindid)
+      {
+        this.did = AppService.intentConfig.transfer.signedindid;
+      } else {
+        this.did = credentials.id;
+      }
+
+      
      
       
       var values = [];

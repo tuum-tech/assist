@@ -9,6 +9,8 @@ import { StatisticsService } from 'src/app/services/statistics.service';
 import { ServiceCountDTO } from 'src/app/models/servicecount.model';
 import * as moment from 'moment'
 import { toBase64String } from '@angular/compiler/src/output/source_map';
+import { isNullOrUndefined, isUndefined } from 'util';
+import { LocalStorageService } from 'src/app/services/localstorage.service';
 
 
 declare let appManager: AppManagerPlugin.AppManager;
@@ -35,6 +37,7 @@ export class CreatePage {
 
   constructor(public navCtrl: NavController, 
               private appService: AppService, 
+              private localStorage: LocalStorageService,
               private statService: StatisticsService,
               private native: Native, 
               public router: Router,
@@ -75,8 +78,20 @@ export class CreatePage {
     console.log("config", AppService.intentConfig);
     if (AppService.intentConfig && AppService.intentConfig.transfer) {
       let credentials = JSON.parse(atob(AppService.intentConfig.transfer.didrequest.payload));
-      this.did = credentials.id;
-     
+
+      AppService.signedIdentity = await this.localStorage.getProfile();
+
+      if (isNullOrUndefined(AppService.signedIdentity) || 
+      isNullOrUndefined(AppService.signedIdentity.didString) ||
+          AppService.signedIdentity.didString == "" )
+      {
+        this.navCtrl.navigateForward(['onboarding', { replaceUrl: true }]);
+        return;
+      }
+
+      this.did = AppService.signedIdentity.didString;
+      
+
       
       var values = [];
       if (credentials.verifiableCredential)
@@ -144,6 +159,7 @@ export class CreatePage {
     let data = {
       "didRequest" : AppService.intentConfig.transfer.didrequest,
       "requestFrom": AppService.intentConfig.transfer.from,
+      "did": this.did,
       "memo": this.memo || ""
     }
     this.httpService.post<PostDTO>(action, data).then(async response=>{

@@ -112,8 +112,7 @@ export class AppService {
 
         return new Promise(async (resolve, reject) => {
 
-          
-            
+            console.log("Try do login")
 
             appManager.sendIntent("credaccess", {
                 claims:

@@ -159,6 +159,7 @@ export class CreatePage {
     let data = {
       "didRequest" : AppService.intentConfig.transfer.didrequest,
       "requestFrom": AppService.intentConfig.transfer.from,
+      "did": this.did,
       "memo": this.memo || ""
     }
     this.httpService.post<PostDTO>(action, data).then(async response=>{

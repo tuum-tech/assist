@@ -1,9 +1,9 @@
 {
-  "id": "tech.tuum.test.assist",
+  "id": "tech.tuum.assist",
   "version": "1.2.0",
   "version_code": 4,
-  "name": "Assist Test",
-  "short_name": "Assist Test",
+  "name": "Assist",
+  "short_name": "Assist",
   "short_description": "Assist dApp for elastOS",
   "description": "Publish your DID to the blockchain for free",
   "start_url": "index.html",
@@ -35,8 +35,7 @@
     "DIDPlugin"
   ],
   "urls": [
-    "http://*",
-    "https://*"
+    "https://wogbjv3ci3.execute-api.us-east-1.amazonaws.com/prod/*"
   ],
   "intent_filters": [
     {

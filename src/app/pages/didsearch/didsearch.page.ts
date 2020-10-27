@@ -5,6 +5,7 @@ import { RequestsService } from 'src/app/services/requests.service';
 import { RequestDTO } from 'src/app/models/request.model';
 import { DocumentSearchDTO, VerifiableCredentialDTO, DocumentMap, DocumentDTO } from 'src/app/models/documentsearch.model';
 import { DocumentsService } from 'src/app/services/documents.service';
+import { isDefined } from '@angular/compiler/src/util';
 
 declare let appManager: AppManagerPlugin.AppManager;
 declare let titleBarManager: TitleBarPlugin.TitleBarManager;
@@ -34,19 +35,19 @@ export class DidSearchPage {
 
     // Update system status bar every time we re-enter this screen.
     this.appService.setTitleBar();
-    this.appService.setBack(()=>{
+    this.appService.setBack(() => {
       this.goBack()
     })
   }
 
-  async ionViewWillEnter(){
-    
+  async ionViewWillEnter() {
 
-    
-  } 
+
+
+  }
 
   async getRequests() {
-    
+
   }
 
   onInput(value) {
@@ -54,55 +55,76 @@ export class DidSearchPage {
   }
 
 
-  
-  async searchDocuments(){
+
+  async searchDocuments() {
     this.isLoading = true;
 
-    let response = await this.documentService.getDocumentsFromDid(this.search);
+    let found = await this.SearchByDID(this.search);
 
-    if (response)
-    {
-        this.documentSearch = response
-
-        if (!this.documentSearch.documents ||
-            this.documents.length == 0)
-            {
-               this.appService.toast("No documents found", 5000) 
-            }
+    if (!found) {
+      this.searchByCryptoName(this.search)
     }
-    this.isLoading = false
-
+    this.isLoading = false;
   }
 
-  get did(): string{
+  async searchByCryptoName(search) {
+    console.log("searching by crypto name");
+    let response = await this.documentService.getDocumentsFromCryptoName(search);
+    if (response) {
+      this.documentSearch = response
+
+      if (!this.documentSearch.documents ||
+        this.documents.length == 0) {
+        this.appService.toast("No documents found", 5000)
+      }
+    }
+  }
+
+  async SearchByDID(search): Promise<boolean> {
+    let response = await this.documentService.getDocumentsFromDid(search);
+    if (response) {
+      this.documentSearch = response
+
+      if (!this.documentSearch.documents) {
+        return false;
+      } else if (this.documents.length > 0) {
+        console.log(this.documents.length);
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  get did(): string {
     if (!this.documentSearch) return ""
     return this.documentSearch.did
   }
 
 
-  get documents(): DocumentDTO[]{
-    
+  get documents(): DocumentDTO[] {
+
     if (!this.documentSearch) return []
     let response: DocumentDTO[] = [];
     for (let key in this.documentSearch.documents) {
-        let item = this.documentSearch.documents[key]
-        item.id = key
-        item.did = this.documentSearch.did
-        response.push(item)
+      let item = this.documentSearch.documents[key]
+      item.id = key
+      item.did = this.documentSearch.did
+      response.push(item)
     }
     return response
   }
-  
-  openDocument(document: DocumentDTO){
+
+  openDocument(document: DocumentDTO) {
     DocumentsService.selectedDocument = document;
     this.navCtrl.navigateForward(['document']);
   }
- 
+
   goBack() {
     this.navCtrl.back();
   }
 
-  async doRefresh(evnt){
+  async doRefresh(evnt) {
     await this.getRequests()
     evnt.target.complete();
   }

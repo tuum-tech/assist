@@ -52,6 +52,8 @@ export class DidDocumentComponent implements OnInit {
     let timespanInMinutes = timespanInSeconds / 60;
     let timespanInHeures = timespanInMinutes / 60;
     let timespanInDays = timespanInHeures / 24;
+    let timespanInMonths = timespanInDays / 30; // will considerer 1 month = 30 days, don't seem to be a issue here
+    let timespanInYears = timespanInDays / 365; // use days to calculate for years to be more precise.
     if (timespanInSeconds < 60)
       return "just now";
     if (timespanInMinutes < 60)
@@ -59,13 +61,16 @@ export class DidDocumentComponent implements OnInit {
     if (timespanInHeures < 24)
       return `${Math.trunc(timespanInHeures)} hours ago`;
     if (timespanInDays < 2) {
-      return "yesterday"
+      return "yesterday";
     }
     if (timespanInDays < 30) {
       return `${Math.trunc(timespanInDays)} days ago`;
     }
+    if (timespanInMonths < 12) {
+      return `${Math.trunc(timespanInMonths)} months ago`;
+    }
     else
-      return `on ${this.document.published}`;
+      return `${Math.trunc(timespanInYears)} years ago`;
   }
 
   getCaptalizedHeader(item: VerifiableCredentialDTO) {

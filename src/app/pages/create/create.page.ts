@@ -28,21 +28,21 @@ export class CreatePage {
   payload: string;
   did: string;
   profileValues = []
-  memo:string;
+  memo: string;
   hasTransaction: boolean = false;
   endTransaction: boolean = false;
   timer: number;
   requestId: string;
   serviceCount: ServiceCountDTO;
 
-  constructor(public navCtrl: NavController, 
-              private appService: AppService, 
-              private localStorage: LocalStorageService,
-              private statService: StatisticsService,
-              private native: Native, 
-              public router: Router,
-              private httpService: HttpHelper) {
-    
+  constructor(public navCtrl: NavController,
+    private appService: AppService,
+    private localStorage: LocalStorageService,
+    private statService: StatisticsService,
+    private native: Native,
+    public router: Router,
+    private httpService: HttpHelper) {
+
   }
 
   ionViewDidEnter() {
@@ -58,20 +58,20 @@ export class CreatePage {
 
   ionViewWillEnter() {
     console.log(AppService.intentConfig);
-      
-    setTimeout(()=> this.refresh(), 500)
-    
+
+    setTimeout(() => this.refresh(), 500)
+
   }
 
-  refreshCounter(): Promise<void>{
-   return new Promise<void>((resolve, reject) =>{
-    this.statService.getUserStatisticsFromService(StatisticsService.ID_PUBLISH, this.did).then(response=>{
-      this.serviceCount = response;
-      resolve()
-    }).catch(error =>{
-      resolve()
+  refreshCounter(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.statService.getUserStatisticsFromService(StatisticsService.ID_PUBLISH, this.did).then(response => {
+        this.serviceCount = response;
+        resolve()
+      }).catch(error => {
+        resolve()
+      })
     })
-   })
   }
 
   async refresh() {
@@ -81,44 +81,41 @@ export class CreatePage {
 
       AppService.signedIdentity = await this.localStorage.getProfile();
 
-      if (isNullOrUndefined(AppService.signedIdentity) || 
-      isNullOrUndefined(AppService.signedIdentity.didString) ||
-          AppService.signedIdentity.didString == "" )
-      {
+      if (isNullOrUndefined(AppService.signedIdentity) ||
+        isNullOrUndefined(AppService.signedIdentity.didString) ||
+        AppService.signedIdentity.didString == "") {
         this.navCtrl.navigateForward(['onboarding', { replaceUrl: true }]);
         return;
       }
 
       this.did = AppService.signedIdentity.didString;
-      
 
-      
+
+
       var values = [];
-      if (credentials.verifiableCredential)
-      {
+      if (credentials.verifiableCredential) {
         credentials.verifiableCredential.forEach(function (value) {
           let credId = value.id.replace("#", "");
           let item = value.credentialSubject[credId]
-          
+
           if (typeof item !== 'object' && item !== null)
-              item = decodeURIComponent(escape(item))
+            item = decodeURIComponent(escape(item))
 
 
           values.push({
             "header": credId,
             "value": item
           })
-        }); 
+        });
       }
       this.profileValues = values;
       this.endTransaction = false;
       this.hasTransaction = true;
-      
+
       await this.refreshCounter();
 
       if (!this.serviceCount ||
-         (this.serviceCount && this.serviceCount.count >= 5))
-      {
+        (this.serviceCount && this.serviceCount.count >= 5)) {
         this.startResetTimer()
       }
 
@@ -128,50 +125,61 @@ export class CreatePage {
       this.endTransaction = false;
       this.did = ""
       this.resetTimer = ""
-      this.profileValues =[]
+      this.profileValues = []
       this.payload = "";
       this.memo = "";
 
       var redirectPage = "onboarding"
-      if (AppService.signedIdentity)
-      {
+      if (AppService.signedIdentity) {
         redirectPage = "home"
       }
-      this.router.navigate([redirectPage],{ replaceUrl: true });  
+      this.router.navigate([redirectPage], { replaceUrl: true });
     }
   }
 
-  isObjImage(obj)
-  {
+  isObjImage(obj) {
     return this.appService.isObjImage(obj);
   }
 
-  getBase64Image(obj)
-  {
+  getBase64Image(obj) {
     return this.appService.getBase64Image(obj);
   }
- 
+
 
   doPublish() {
-    if (!this.serviceCount || this.serviceCount.count >=5) return;
+    if (!this.serviceCount || this.serviceCount.count >= 5) return;
 
     let action = "/v1/didtx/create"
     let data = {
-      "didRequest" : AppService.intentConfig.transfer.didrequest,
+      "didRequest": AppService.intentConfig.transfer.didrequest,
       "requestFrom": AppService.intentConfig.transfer.from,
       "did": this.did,
       "memo": this.memo || ""
     }
-    this.httpService.post<PostDTO>(action, data).then(async response=>{
+    this.httpService.post<PostDTO>(action, data).then(async response => {
 
-      if (response.data["confirmation_id"] == "")
-      {
+      appManager.getPreference('chain.network.type', (value) => {
+        if (value === 'MainNet') {
+          console.log("Ok, publishing to MainNet.")
+        } else {
+          console.log(`Oops, publishing to ${value} not supported!`);
           this.appService.presentAlert(
-            "You have reached your daily limit for DID publish service. Please try again tomorrow",
+            "Assist can currently only publish DIDs to mainnet. Please try switching your network preference and try again",
             "",
-             () =>{
-               this.doCancel();
-             });
+            () => {
+              this.doCancel();
+            });
+        }
+      });
+
+
+      if (response.data["confirmation_id"] == "") {
+        this.appService.presentAlert(
+          "You have reached your daily limit for DID publish service. Please try again tomorrow",
+          "",
+          () => {
+            this.doCancel();
+          });
       } else {
 
 
@@ -179,32 +187,30 @@ export class CreatePage {
         this.timer = 20;
         this.requestId = response.data["confirmation_id"];
         this.endTransaction = true;
-        if (response.data["duplicate"] == true)
-        {
+        if (response.data["duplicate"] == true) {
           this.appService.presentAlert("Your last request is still processing. Please try again later",
-          "",
-          () =>{
-            this.startTimer();
-          })
+            "",
+            () => {
+              this.startTimer();
+            })
         } else {
           this.appService.addNewRequestToBackground(this.requestId)
           this.startTimer();
         }
-        
+
       }
 
-      
-      
-    }).catch(error =>{
+
+
+    }).catch(error => {
       console.log("error");
     })
   }
 
-  startTimer(){
-    setTimeout( () =>{
-      this.timer --;
-      if (this.timer > 0)
-      {
+  startTimer() {
+    setTimeout(() => {
+      this.timer--;
+      if (this.timer > 0) {
         this.startTimer();
       } else if (this.timer == 0) {
         this.returnTransaction();
@@ -214,83 +220,79 @@ export class CreatePage {
 
   public resetTimer: string = ""
 
-  startResetTimer(){
-    setTimeout(async () =>{
+  startResetTimer() {
+    setTimeout(async () => {
       if (!AppService.intentConfig) return
-      let tomorrow = moment(`${moment().utc().add(1, 'days').format("YYYY-MM-DD")}T00:00Z`) 
+      let tomorrow = moment(`${moment().utc().add(1, 'days').format("YYYY-MM-DD")}T00:00Z`)
       let diffHours = tomorrow.utc().diff(moment().utc(), "minutes")
       let diffMinutes = tomorrow.utc().diff(moment().utc(), "seconds")
       let hours = Math.floor(diffHours / 60);
       let minutes = diffHours % 60
       let seconds = diffMinutes % 60;
-      this.resetTimer =  `${this.formatZero(hours)}:${this.formatZero(minutes)}:${this.formatZero(seconds)}`
+      this.resetTimer = `${this.formatZero(hours)}:${this.formatZero(minutes)}:${this.formatZero(seconds)}`
       try {
         await this.refreshCounter()
-        if (this.serviceCount.count >= 5)
-        {
+        if (this.serviceCount.count >= 5) {
           this.startResetTimer();
-        }  
+        }
       } catch (error) {
-        this.startResetTimer();  
+        this.startResetTimer();
       }
     }, 1000)
   }
 
- 
+
 
   formatZero(value, size = 2) {
     var s = String(value);
-    while (s.length < (size || 2)) {s = "0" + s;}
+    while (s.length < (size || 2)) { s = "0" + s; }
     return s;
-}
+  }
 
-  returnTransaction()
-  {
+  returnTransaction() {
     this.timer = -1;
-    
+
     appManager.sendIntentResponse(
       AppService.intentConfig.transfer.action,
       { txid: this.requestId },
       AppService.intentConfig.transfer.intentId,
-      success =>{
+      success => {
         AppService.intentConfig = null
         appManager.close()
       },
-      error =>{
+      error => {
         console.error(error)
       }
     )
     this.refresh();
   }
 
-  doCancel(){
+  doCancel() {
     appManager.sendIntentResponse(
       AppService.intentConfig.transfer.action,
       {},
       AppService.intentConfig.transfer.intentId,
-      success =>{
+      success => {
         AppService.intentConfig = null
         appManager.close()
       },
-      error =>{
+      error => {
         console.error(error)
       }
     )
     this.refresh();
   }
 
-  getButtonPublishClass()
-  {
-    if (this.serviceCount && this.serviceCount.count < 5)
-    {
+  getButtonPublishClass() {
+    if (this.serviceCount && this.serviceCount.count < 5) {
       return "button-publish"
     }
     return "button-publish-disabled"
   }
 
-  copy(value){
+  copy(value) {
     this.appService.copyClipboard(value);
     this.appService.toast("Copied to clipboard")
   }
- 
+
 }

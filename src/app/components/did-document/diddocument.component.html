@@ -1,23 +1,26 @@
 <div class="document-item">
-    
+
     <div>
         <img [src]="avatar" class="document-item-avatar" />
         <span class="document-item-header">
+            Last Published {{ getLastPublished() }}
+        </span>
+        <span class="document-item-header">
             DID:
-            <img style="margin-left: 15px;"  src="../../../assets/images/badge.svg" *ngIf="isLatest" />
+            <img style="margin-left: 15px;" src="../../../assets/images/badge.svg" *ngIf="isLatest" />
         </span>
         <span class="document-item-value">{{did}}</span>
         <div *ngFor="let item of credentials">
             <span class="document-item-header">
                 {{getCaptalizedHeader(item)}}
                 <span *ngIf="isVerified(item) && !isExpired(item)">
-                    <img style="margin-left: 5px"  src="../../../assets/images/verified.svg" />
+                    <img style="margin-left: 5px" src="../../../assets/images/verified.svg" />
                 </span>
                 <span *ngIf="isVerified(item) && isExpired(item)">
                     <img style="margin-left: 5px" src="../../../assets/images/expired.svg" />
                     <span style="margin-left: 2px; font-size: 10px; color:#FF0014DE;">Expired</span>
                 </span>
-            
+
             </span>
             <span class="document-item-value">
                 {{getValue(item)}}

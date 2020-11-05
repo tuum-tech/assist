@@ -26,5 +26,18 @@ export class DocumentsService{
         })
     }
 
+    getDocumentsFromCryptoName(crypto_name) : Promise<DocumentSearchDTO> {
+        return new Promise<DocumentSearchDTO>(async (resolve, reject) =>{
+            
+            var action = `/v1/documents/crypto_name/${crypto_name}`
+            var response = await this.httpService.get<HttpResponseDTO>(action);
+            if (response.meta["code"] == 200){
+                resolve(response.data as DocumentSearchDTO)
+            } else {
+                reject(response.meta["message"])
+            }           
+        })
+    }
+
   
 }

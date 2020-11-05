@@ -10,33 +10,33 @@ import { AppService } from 'src/app/services/app.service';
   styleUrls: ['./diddocument.component.scss'],
 })
 export class DidDocumentComponent implements OnInit {
- 
+
   @Input() did: string;
   @Input() isLatest: boolean;
   @Input() document: DocumentDTO;
   @Input() highlight: string;
 
-  constructor(private sanitizer: DomSanitizer, private appService: AppService) {}
+  constructor(private sanitizer: DomSanitizer, private appService: AppService) { }
 
   ngOnInit() {
-   
+
   }
 
-  get credentials(): VerifiableCredentialDTO[]{
+  get credentials(): VerifiableCredentialDTO[] {
     let response: VerifiableCredentialDTO[] = []
-    
-    
-    this.document.verifiable_creds.forEach(item =>{
+
+
+    this.document.verifiable_creds.forEach(item => {
       if (item.id != "#avatar") response.push(item)
     })
 
     return response
   }
 
-  get avatar() : string{
+  get avatar(): string {
     let avatar = "../../../assets/images/icon-Profile.png"
 
-    this.document.verifiable_creds.forEach(item =>{
+    this.document.verifiable_creds.forEach(item => {
       if (item.id == "#avatar") {
         avatar = this.appService.getBase64Image(item.subject["avatar"])
       }
@@ -45,33 +45,60 @@ export class DidDocumentComponent implements OnInit {
     return avatar
   }
 
-  getCaptalizedHeader(item: VerifiableCredentialDTO){
+  getLastPublished(): string {
+    let lastPublished = Date.parse(this.document.published);
+
+    let timespanInSeconds = (Date.now() - lastPublished) / 1000;
+    let timespanInMinutes = timespanInSeconds / 60;
+    let timespanInHeures = timespanInMinutes / 60;
+    let timespanInDays = timespanInHeures / 24;
+    let timespanInMonths = timespanInDays / 30; // will considerer 1 month = 30 days, don't seem to be a issue here
+    let timespanInYears = timespanInDays / 365; // use days to calculate for years to be more precise.
+    if (timespanInSeconds < 60)
+      return "just now";
+    if (timespanInMinutes < 60)
+      return `${Math.trunc(timespanInMinutes)} minutes ago`;
+    if (timespanInHeures < 24)
+      return `${Math.trunc(timespanInHeures)} hours ago`;
+    if (timespanInDays < 2) {
+      return "yesterday";
+    }
+    if (timespanInDays < 30) {
+      return `${Math.trunc(timespanInDays)} days ago`;
+    }
+    if (timespanInMonths < 12) {
+      return `${Math.trunc(timespanInMonths)} months ago`;
+    }
+    else
+      return `${Math.trunc(timespanInYears)} years ago`;
+  }
+
+  getCaptalizedHeader(item: VerifiableCredentialDTO) {
     let header = item.id.replace("#", "");
     return header.charAt(0).toUpperCase() + header.slice(1) + ":";
   }
 
-  getValue(item: VerifiableCredentialDTO){
+  getValue(item: VerifiableCredentialDTO) {
     let subject = item.subject[item.id.replace("#", "")]
     if (subject !== Object(subject)) return subject
     return ""
   }
 
-  isVerified(item: VerifiableCredentialDTO){
-      return !item.type.includes("SelfProclaimedCredential")
+  isVerified(item: VerifiableCredentialDTO) {
+    return !item.type.includes("SelfProclaimedCredential")
   }
 
-  isExpired(item: VerifiableCredentialDTO) : boolean
-  {
+  isExpired(item: VerifiableCredentialDTO): boolean {
     let expiration = moment(item.expiration_date)
     return expiration < moment()
   }
 
-  isVerifiedAndExpired(item){
-      if (item.type.includes("SelfProclaimedCredential")) return false
+  isVerifiedAndExpired(item) {
+    if (item.type.includes("SelfProclaimedCredential")) return false
   }
-  
 
 
 
- 
+
+
 }

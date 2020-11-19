@@ -13,7 +13,7 @@
            
             <div class="details-memo">
                 <img src="../../../assets/images/icon-search@2x.png" (click)="searchDocuments()" />
-                <input #searchInput type="text" (input)="onInput(searchInput.value)" placeholder="Search by DID" auto-grow="true" (keyup.enter)="searchDocuments()" />
+                <input #searchInput type="text" (input)="onInput(searchInput.value)" placeholder="Search by DID or Cryptoname" auto-grow="true" (keyup.enter)="searchDocuments()" />
             </div>
             <div class="document-back" *ngIf="!isLoading && (documents == null || documents.length == 0)">
                 <img src="../../../assets/images/back-did-search.svg" />

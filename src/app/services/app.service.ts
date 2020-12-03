@@ -114,7 +114,7 @@ export class AppService {
 
             console.log("Try do login")
 
-            appManager.sendIntent("credaccess", {
+            appManager.sendIntent("https://did.elastos.net/credaccess", {
                 claims:
                 {
                     name: false,

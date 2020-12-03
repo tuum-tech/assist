@@ -40,7 +40,7 @@
   ],
   "intent_filters": [
     {
-      "action": "didtransaction"
+      "action": "https://wallet.elastos.net/didtransaction"
     }
   ],
   "startup_service": [

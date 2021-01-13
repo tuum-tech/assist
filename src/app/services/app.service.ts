@@ -117,6 +117,7 @@ export class AppService {
             appManager.sendIntent("https://did.elastos.net/credaccess", {
                 claims:
                 {
+                    publisheddid: false,
                     name: false,
                     avatar: false
                 }

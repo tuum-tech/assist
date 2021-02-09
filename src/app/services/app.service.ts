@@ -40,6 +40,7 @@ export class AppService {
     setIntentListener() {
         if (!this.isReceiveIntentReady) {
             this.isReceiveIntentReady = true;
+            
             appManager.setIntentListener((intent: AppManagerPlugin.ReceivedIntent) => {
                 this.onReceiveIntent(intent);
             });
@@ -125,27 +126,35 @@ export class AppService {
                 {},
                 (response) => {
 
-                    var nameSubject = self.getSubject(response.result.presentation, "name");
-                    var avatarSubject = self.getSubject(response.result.presentation, "avatar");
-                    
-                    var avatar = null;
+                    console.log("Return cred access")
 
-                    if (avatarSubject)
-                    {
-                        avatar = {
-                            contentType: avatarSubject["content-type"],
-                            base64ImageData: this.getBase64Image(avatarSubject)
+                    if (!response.result){
+                        resolve(false);
+                    } else {
+                        var nameSubject = self.getSubject(response.result.presentation, "name");
+                        var avatarSubject = self.getSubject(response.result.presentation, "avatar");
+                        
+                        var avatar = null;
+    
+                        if (avatarSubject)
+                        {
+                            avatar = {
+                                contentType: avatarSubject["content-type"],
+                                base64ImageData: this.getBase64Image(avatarSubject)
+                            }
                         }
+    
+                        AppService.signedIdentity = {
+                            didString: response.result.did,
+                            didStoreId: response.result.did,
+                            name: nameSubject || "",
+                            avatar: avatar
+                        };
+                        this.localStorage.setProfile(AppService.signedIdentity)
+                        resolve(true);
                     }
 
-                    AppService.signedIdentity = {
-                        didString: response.result.did,
-                        didStoreId: response.result.did,
-                        name: nameSubject || "",
-                        avatar: avatar
-                    };
-                    this.localStorage.setProfile(AppService.signedIdentity)
-                    resolve(true);
+                  
 
                 },
                 function (err) {
@@ -185,7 +194,7 @@ export class AppService {
 
     onReceiveIntent(intent: AppManagerPlugin.ReceivedIntent) {
         console.log("Intent received message:", intent.action, ". params: ", intent.params, ". from: ", intent.from);
-        AppService.intentConfig = {};
+        AppService.intentConfig = {isLoaded: false};
         AppService.intentConfig.transfer = {
             memo: intent.params.memo || '',
             intentId: intent.intentId,

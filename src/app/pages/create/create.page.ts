@@ -50,7 +50,7 @@ export class CreatePage {
     // in case it was started hidden while loading.
     appManager.setVisible("show");
 
-
+    
 
     // Update system status bar every time we re-enter this screen.
     this.appService.setTitleBar();
@@ -75,7 +75,14 @@ export class CreatePage {
   }
 
   async refresh() {
-    console.log("config", AppService.intentConfig);
+    console.log("Enter refresh", AppService.intentConfig);
+
+    if (AppService.intentConfig.isLoaded) {
+      console.log("Intent already ok")
+      this.doCancel();
+    }
+    
+
     if (AppService.intentConfig && AppService.intentConfig.transfer) {
       let credentials = JSON.parse(atob(AppService.intentConfig.transfer.didrequest.payload));
 
@@ -84,8 +91,12 @@ export class CreatePage {
       if (isNullOrUndefined(AppService.signedIdentity) ||
         isNullOrUndefined(AppService.signedIdentity.didString) ||
         AppService.signedIdentity.didString == "") {
-        this.navCtrl.navigateForward(['onboarding', { replaceUrl: true }]);
-        return;
+        var loginResponse = await this.appService.tryDoLogin();
+        if (!loginResponse) AppService.intentConfig.isLoaded = true;
+
+        AppService.signedIdentity = await this.localStorage.getProfile();
+
+       // return
       }
 
       this.did = AppService.signedIdentity.didString;
